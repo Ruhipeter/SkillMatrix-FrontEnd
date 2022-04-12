@@ -1,0 +1,34 @@
+.sideNav{
+    margin-left: inherit;
+    text-align: center;
+    width: 7.1% !important;
+}
+ul {     
+    width: 120px;
+    position: fixed;
+    height: 100%;
+    list-style-type: none;
+    padding-left: unset !important;
+    background-color: #273143;
+    color: white;}
+li{
+    padding: 10px;
+}
+li:hover{
+    background-color: #394253;
+    cursor: pointer;
+}
+a{
+    color: white !important;
+    text-decoration: none !important;
+}
+.dropdown-menu{
+    background-color: #212529 !important;
+    color: white !important;
+}
+.dropdown-item:hover{
+    color: black !important;
+}
+.active > li{
+background-color: #394253;
+}

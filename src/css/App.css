@@ -1,0 +1,88 @@
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+#heading{
+  text-align: center;
+}
+img{
+  height: 100%; /* You must set a specified height */
+  width: 100%;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; 
+}
+.imgDiv{
+  padding-right: unset !important;
+}
+.studentForm{
+  background-color: #fcfcfd;
+}
+input:hover{
+  border-color:#3459e6 !important;
+}
+select:hover{
+  border-color: #3459e6 !important;
+}
+textarea:hover{
+  border-color: #3459e6 !important;
+}
+option:hover{
+  background-color: #3459e6 !important;
+}
+.modal{
+  border-top:2px solid #3459e6
+}
+.modal-content{
+  border-radius: 10px 50px 15px 15px !important;
+
+}
+.modal-body {
+  border-top: 4px solid #3459e6;
+  border-radius: 10px 50px 15px 15px;
+}
+.modal-footer{
+  background-color:unset;
+}
+
+input{
+  font-weight:500 !important;
+  color:black !important;
+  font-size:15px !important;
+}
+select {
+  font-weight: 500 !important;
+  color: black !important;
+  font-size: 15px !important;
+}
+textarea {
+  font-weight: 500 !important;
+  color: black !important;
+  font-size: 15px !important;
+}
+h5{
+  color: black !important;
+}
+
+

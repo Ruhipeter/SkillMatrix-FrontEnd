@@ -1,0 +1,11 @@
+.card-title{
+    font-weight: 400;
+}
+.todoStyle{
+    text-align: justify;
+}
+.todoStyleChecked{
+    text-decoration: line-through;
+    color: grey;
+    font-weight: 400;
+}
