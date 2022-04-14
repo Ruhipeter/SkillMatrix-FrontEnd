@@ -1,0 +1,11 @@
+.form-label{
+    font-size: 20px !important;
+}
+.submitBtn{
+font-size: 20px;
+padding: 10px;
+float:right;
+margin-top: 20px;
+width: 250px;
+font-weight: 500;
+}

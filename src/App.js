@@ -5,6 +5,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './login/login';
 import HomePage from './HomePage/HomePage';
 import ManagerHomePage from './ManagerHomePage/ManagerHomePage';
+import BasicDetails from './ManagerHomePage/BasicDetails';
+import SkillMatrix from './ManagerHomePage/skillMatrix';
+import TeamSkillDetails from './ManagerHomePage/teamSkillDetails';
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
   if (loggedIn == "true") {
@@ -41,6 +44,37 @@ function App() {
           element={
             <RequireAuth redirectTo="/">
               <ManagerHomePage />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/BasicDetails"
+          element={
+            <RequireAuth redirectTo="/">
+              <BasicDetails/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/SkillMatrix"
+          element={
+            <RequireAuth redirectTo="/">
+              <SkillMatrix/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+
+      <Routes>
+        <Route
+          path="/TeamSkillDetails"
+          element={
+            <RequireAuth redirectTo="/">
+              <TeamSkillDetails/>
             </RequireAuth>
           }
         />
