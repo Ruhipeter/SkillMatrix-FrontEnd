@@ -6,12 +6,11 @@ import { Password } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
-import { UserDetails } from "../features/userSlice";
 
 
 function LoginPage({loggedIn,setLoggedIn}) {
   let navigate = useNavigate(); 
-  const dispatch=useDispatch();
+  
 
   const [username , setUsername] = useState("")
   const [password,setPassword] = useState("")
@@ -19,8 +18,8 @@ function LoginPage({loggedIn,setLoggedIn}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData={
-      "username":username,
-      "password":password
+      "username":"Vivek.Singh@mail.vinove.com",
+      "password":"Vivek@12345"
     }
    
     e.preventDefault()
@@ -28,15 +27,15 @@ function LoginPage({loggedIn,setLoggedIn}) {
     .post("https://localhost:7074/api/User/Login", formData)
     .then(res => {
       const data = res.data;
-      // console.log(data)
+      console.log(data)
       const userId = res.data.data.userId;
-      dispatch(UserDetails(res.data.data));
-      console.log(res.data.data)
+      const empId=res.data.data.empId;
       if(data.responseCode == 200){
       console.log("Logged in Successfully")
       localStorage.setItem("LoggedIn", true);
       localStorage.setItem("User", username);
       localStorage.setItem("UserId",userId);
+      localStorage.setItem("EmpId",empId);
       // let path = `/home`; 
       {data.data.userRole===0?navigate('/home'):navigate('/ManagerHomePage');}
       // navigate(path);
@@ -44,6 +43,7 @@ function LoginPage({loggedIn,setLoggedIn}) {
     })
     .catch(err => console.log(err));
   };
+
   return (
     <>
       <div className="container-fluid" style={{backgroundColor:'white'}}>

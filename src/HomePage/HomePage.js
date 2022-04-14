@@ -4,11 +4,11 @@ import QuickAccess from './quickAccess'
 import Sidebar from './sidebar'
 import TopBar from './topBar'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../features/userSlice'
+
 
 export default function HomePage() {
-  const User=useSelector(selectUser); 
-  console.log(User);
+
+ 
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function HomePage() {
               <QuickAccess/>
           </div>
           <div className="col-11 col-md-7 col-sm-11 m-sm-5 m-md-0"  >
-              <Feeds/>
+              <Feeds />
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import ManagerHomePage from './ManagerHomePage/ManagerHomePage';
 import BasicDetails from './ManagerHomePage/BasicDetails';
 import SkillMatrix from './ManagerHomePage/skillMatrix';
 import TeamSkillDetails from './ManagerHomePage/teamSkillDetails';
+import { useSelector } from 'react-redux';
+import Skills from './Skills';
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
   if (loggedIn == "true") {
@@ -39,8 +41,18 @@ function App() {
         />
       </Routes>
       <Routes>
+        <Route path="/:skill/:qid"
+          element={
+          <RequireAuth redirectTo="/">
+          <Skills />
+          </RequireAuth>
+
+          } />
+      </Routes>
+    
+      <Routes>
         <Route
-          path="/ManagerHomePage"
+          path="/Manager Home Page"
           element={
             <RequireAuth redirectTo="/">
               <ManagerHomePage />
@@ -80,6 +92,8 @@ function App() {
         />
       </Routes>
       
+
+
     </BrowserRouter>
   );
 }
