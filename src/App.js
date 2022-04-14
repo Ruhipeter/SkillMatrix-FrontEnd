@@ -5,6 +5,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import LoginPage from './login/login';
 import HomePage from './HomePage/HomePage';
 import ManagerHomePage from './ManagerHomePage/ManagerHomePage';
+import { useSelector } from 'react-redux';
+import Skills from './Skills';
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
   if (loggedIn == "true") {
@@ -36,8 +38,18 @@ function App() {
         />
       </Routes>
       <Routes>
+        <Route path="/:skill/:qid"
+          element={
+          <RequireAuth redirectTo="/">
+          <Skills />
+          </RequireAuth>
+
+          } />
+      </Routes>
+    
+      <Routes>
         <Route
-          path="/ManagerHomePage"
+          path="/Manager Home Page"
           element={
             <RequireAuth redirectTo="/">
               <ManagerHomePage />
@@ -45,7 +57,8 @@ function App() {
           }
         />
       </Routes>
-      
+
+
     </BrowserRouter>
   );
 }

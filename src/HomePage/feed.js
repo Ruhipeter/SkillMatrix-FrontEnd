@@ -10,50 +10,60 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CallIcon from '@mui/icons-material/Call';
 import { NavLink } from "react-router-dom";
 import '../css/feed.css'
+import { useDispatch, useSelector } from "react-redux";
+import { listUserDetails } from "../Redux/actions/userActions";
+import { listUserSkills } from "../Redux/actions/userSkillsActions";
 
 function Feeds() {
   const [feed, setFeeds] = useState("");
   const [feedsDB, setFeedsDB] = useState([]);
-  console.log(feedsDB.length);
+  const [userInformation,setUserinformation]=useState({})
+  const dispatch=useDispatch();
+  const userInfo = useSelector(state=>state.rootReducer.user.users)
+  const userSkills = useSelector(state =>state.rootReducer.userSkill.userSkills);
 
-  var feedBox = document.getElementById("feedBox")
-  const AddFeed = (e) => {
-    e.preventDefault();
-    let obj = [...feedsDB];
-    obj.push(feed);
-    setFeedsDB(obj);
-    e.target.reset();
-  };
+useEffect(()=>{
+  const userId=localStorage.getItem("UserId");
+  const empId=localStorage.getItem("EmpId");
+  if(userId && empId){
+    dispatch(listUserDetails(userId));
+    dispatch(listUserSkills(empId));
+  }
+},[])
 
+useEffect(()=>{
+  if(userInfo){
+    setUserinformation(userInfo)
+  }
+},[userInfo])
+
+ console.log(userInformation)
   return (
     <>
       <div className="container" style={{ padding: "20px" }}>
         <h3 style={{ fontWeight: "400" }}>Basic Employee Details</h3>
         <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
           <Card.Body>
-            <h1 style={{fontFamily: "Georgia, serif"}}>Ruhi Peter</h1>
+            <h1 style={{fontFamily: "Georgia, serif"}}>{userInformation.name}</h1>
             <div>
               <div className="row">
                 <div className="col-3 col-md-4">
-                  <LocationOnIcon/> Gurugram
+                  <LocationOnIcon/> {userInformation.location}
                 </div>
                 <div className="col-3 col-md-4">
-                 <MailOutlineIcon/> <a href='mailto:ruhi.peter@mail.vinove.com' className='email'>ruhi.peter@mail.vinove.com</a>
+                 <MailOutlineIcon/> <a href='mailto:ruhi.peter@mail.vinove.com' className='email'>{userInformation.userName}</a>
                 </div>
-                <div className="col-3 col-md-4">
-                 <CallIcon/> 7589308743
-                </div>
-
+              
               </div>
               <hr/>
               <div className="row">
                 <div className=" col-6 col-md-3 ">
                  <label classname ="job title" style ={{color:"#b0b0b3"}}>JOB TITLE</label>
-                 <p>Jr. Associate Software Developer</p>
+                 <p>{userInformation.designation}</p>
                 </div>
                 <div className="col-6 col-md-3  ">
                 <label classname ="DEPARTMENT" style ={{color:"#b0b0b3"}}>DEPARTMENT</label>
-                <p>Operations {'>'} MS -Xam...</p>
+                <p>{userInformation.department}</p>
                 </div>
                 <div className="col-6 col-md-3 ">
                 <label classname ="bussiness unit"  style ={{color:"#b0b0b3"}}>BUSSINESS UNIT</label>
@@ -61,19 +71,19 @@ function Feeds() {
                 </div>
                 <div className="col-6 col-md-3">
                 <label classname ="reporting" style ={{color:"#b0b0b3"}}>REPORTING TO</label>
-                <p>VIkas Kaushik</p>
+                <p>{userInformation.reportingManager}</p>
                 </div>
                 <div className="col-6 col-md-3 mt-md-3 ">
                 <label classname ="EmpNo" style ={{color:"#b0b0b3"}}>EMP NO</label>
-                <p>V5998</p>
+                <p>{userInformation.employeeCode}</p>
                 </div>
                 <div className="col-6 col-md-3  mt-md-3">
                 <label classname ="team" style ={{color:"#b0b0b3"}}>Team</label>
-                <p>.NET</p>
+                <p>{userInformation.team}</p>
                 </div>
                 <div className="col-6 col-md-3 mt-md-3 ">
                 <label classname ="band" style ={{color:"#b0b0b3"}}>Band</label>
-                <p>L1</p>
+                <p>{userInformation.band}</p>
                 </div>
                
                 <hr style={{marginTop:"15px"}}/>
@@ -84,9 +94,9 @@ function Feeds() {
               </div>
             </div>
           </Card.Body>
-        </Card>
+        </Card>   
 
-        {feedsDB.length < 1 ? (
+        {/* {feedsDB.length < 1 ? (
           <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Card.Body>
               <img
@@ -115,8 +125,22 @@ function Feeds() {
               </Card.Body>
             </Card>
           ))
-        )}
-      </div>
+        )} */}
+        <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
+            <Card.Body>
+            <h2 style={{fontFamily: "Georgia, serif"}}>Skills:</h2>
+              <br />
+              {userSkills.map((ele,i)=>{
+                return(
+                  <h5 style={{fontFamily: "Georgia, serif"}}>{i+1}. {ele.questionName}</h5>
+                )
+
+              })}
+              
+
+            </Card.Body>
+          </Card> 
+      </div> 
     </>
   );
 }
