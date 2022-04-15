@@ -13,67 +13,103 @@ import { NavLink } from "react-router-dom";
 import '../css/feed.css'
 
 function Feeds() {
+  const [empDB , setEmpDB] = useState([])
+  const empId = localStorage.getItem('EmpId')
+  const empURL = `https://localhost:7074/api/Manager/GetManagerByEmpId?empId=${empId}`
+
+
+  useEffect(() => {
+    async function empAPI() {
+      await axios.get(empURL).then((response) => {
+        setEmpDB(response.data);
+        console.log(response.data)
+      });
+    }
+    empAPI();
+  }, []);
+  console.log(empDB)
 
   return (
     <>
       <div className="container" style={{ padding: "20px" }}>
         <h4 style={{ fontWeight: "400" }}>Basic Details</h4>
-        <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
-          <Card.Body>
-            <h1 style={{fontFamily: "Georgia, serif"}}>Ruhi Peter</h1>
-            <div>
-              <div className="row">
-                <div className="col-3 col-md-4">
-                  <LocationOnIcon/> Gurugram
-                </div>
-                <div className="col-3 col-md-4">
-                 <MailOutlineIcon/> <a href='mailto:ruhi.peter@mail.vinove.com' className='email'>ruhi.peter@mail.vinove.com</a>
-                </div>
-                <div className="col-3 col-md-4">
-                 <CallIcon/> 7589308743
-                </div>
+        <Card style={{ marginTop: "20px", marginBottom: "20px" }} >
+            {/* {empDB && empDB.map((data)=>( */}
+            <Card.Body key={empDB.id}>
+                <h1>{empDB.name}</h1>
+                <div>
+                  <div className="row">
+                    <div className="col-3 col-md-4">
+                      <LocationOnIcon /> Gurugram
+                    </div>
+                    <div className="col-3 col-md-4">
+                      <MailOutlineIcon />{" "}
+                      <a
+                        href='vikas@gmail.com'
+                        style={{ color: "black" }}
+                        className="email"
+                      >
+                        vikas@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="row">
+                    <div className=" col-6 col-md-3 ">
+                      <label className="job title" style={{ color: "#41464b" }}>
+                        JOB TITLE
+                      </label>
+                      <p>{empDB.designation}</p>
+                    </div>
+                    <div className="col-6 col-md-3  ">
+                      <label
+                        className="DEPARTMENT"
+                        style={{ color: "#41464b" }}
+                      >
+                        DEPARTMENT
+                      </label>
+                      <p>Operations {">"} MS .NET</p>
+                    </div>
+                    <div className="col-6 col-md-3 ">
+                      <label
+                        className="bussiness unit"
+                        style={{ color: "#41464b" }}
+                      >
+                        BUSSINESS UNIT
+                      </label>
+                      <p>Services</p>
+                    </div>
+                    <div className="col-6 col-md-3">
+                      <label className="reporting" style={{ color: "#41464b" }}>
+                        REPORTING TO
+                      </label>
+                      <p>{empDB.reportingManager}</p>
+                    </div>
+                    <div className="col-6 col-md-3 mt-md-3 ">
+                      <label className="EmpNo" style={{ color: "#41464b" }}>
+                        EMP NO
+                      </label>
+                      <p>V3370</p>
+                    </div>
+                    <div className="col-6 col-md-3  mt-md-3">
+                      <label className="team" style={{ color: "#41464b" }}>
+                        Team
+                      </label>
+                      <p>MS .NET</p>
+                    </div>
+                    <div className="col-6 col-md-3 mt-md-3 ">
+                      <label className="band" style={{ color: "#41464b" }}>
+                        Band
+                      </label>
+                      <p>L1</p>
+                    </div>
 
-              </div>
-              <hr/>
-              <div className="row">
-                <div className=" col-6 col-md-3 ">
-                 <label classname ="job title" style ={{color:"#b0b0b3"}}>JOB TITLE</label>
-                 <p>Jr. Associate Software Developer</p>
+                    <hr style={{ marginTop: "15px" }} />
+                  </div>
                 </div>
-                <div className="col-6 col-md-3  ">
-                <label classname ="DEPARTMENT" style ={{color:"#b0b0b3"}}>DEPARTMENT</label>
-                <p>Operations {'>'} MS -Xam...</p>
-                </div>
-                <div className="col-6 col-md-3 ">
-                <label classname ="bussiness unit"  style ={{color:"#b0b0b3"}}>BUSSINESS UNIT</label>
-                <p>Services</p>
-                </div>
-                <div className="col-6 col-md-3">
-                <label classname ="reporting" style ={{color:"#b0b0b3"}}>REPORTING TO</label>
-                <p>VIkas Kaushik</p>
-                </div>
-                <div className="col-6 col-md-3 mt-md-3 ">
-                <label classname ="EmpNo" style ={{color:"#b0b0b3"}}>EMP NO</label>
-                <p>V5998</p>
-                </div>
-                <div className="col-6 col-md-3  mt-md-3">
-                <label classname ="team" style ={{color:"#b0b0b3"}}>Team</label>
-                <p>.NET</p>
-                </div>
-                <div className="col-6 col-md-3 mt-md-3 ">
-                <label classname ="band" style ={{color:"#b0b0b3"}}>Band</label>
-                <p>L1</p>
-                </div>
-               
-                <hr style={{marginTop:"15px"}}/>
-             
-               
-                
-                
-              </div>
-            </div>
-          </Card.Body>
-        </Card>
+              </Card.Body>
+                                 {/* ))} */}
+            </Card>
 
         <h4 style={{ fontWeight: "400" }}>Notifications</h4>
         <div className="col-md-8">
@@ -88,7 +124,7 @@ function Feeds() {
           <Card.Body>
             <Card.Title style={{ fontSize: "15px" }}>Today </Card.Title>
             <Card.Title style={{ fontSize: "26px" }}> Pending Approvals 
-            <span style={{float:'right', fontSize:'35px'}}>+35</span>         
+            <span style={{float:'right', fontSize:'35px'}}>+3</span>         
             </Card.Title>
           </Card.Body>
         </Card>

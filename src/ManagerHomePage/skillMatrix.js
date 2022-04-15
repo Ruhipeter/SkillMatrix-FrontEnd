@@ -70,7 +70,7 @@ export default function SkillMatrix() {
         })
         .catch((err) => console.log(err));
     }
-    quesAPI();
+    // quesAPI();
     navigate("/TeamSkillDetails");
   };
   return (

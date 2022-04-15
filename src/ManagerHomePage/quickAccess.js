@@ -17,19 +17,19 @@ function QuickAccess() {
   const [time, setTime] = React.useState("");
   const [event, setEvent] = React.useState("");
 
-  const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
+  // const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
 
-  useEffect(() => {
-    axios.get(calenderURL).then((response) => {
-      // console.log(response.data.response);
-      let res = response.data.response;
-      if (res.holidays.length > 0) {
-        setEvent(response.data.response.holidays[0].name);
-      } else {
-        setEvent("No Holiday Today");
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get(calenderURL).then((response) => {
+  //     // console.log(response.data.response);
+  //     let res = response.data.response;
+  //     if (res.holidays.length > 0) {
+  //       setEvent(response.data.response.holidays[0].name);
+  //     } else {
+  //       setEvent("No Holiday Today");
+  //     }
+  //   });
+  // }, []);
 
   React.useEffect(() => {
     const myInterval = setInterval(() => {

@@ -44,7 +44,7 @@ useEffect(()=>{
         <h3 style={{ fontWeight: "400" }}>Basic Employee Details</h3>
         <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
           <Card.Body>
-            <h1 style={{fontFamily: "Georgia, serif"}}>{userInformation.name}</h1>
+            <h1>{userInformation.name}</h1>
             <div>
               <div className="row">
                 <div className="col-3 col-md-4">
@@ -58,31 +58,31 @@ useEffect(()=>{
               <hr/>
               <div className="row">
                 <div className=" col-6 col-md-3 ">
-                 <label classname ="job title" style ={{color:"#b0b0b3"}}>JOB TITLE</label>
+                 <label classname ="job title" style ={{color:"#41464b"}}>JOB TITLE</label>
                  <p>{userInformation.designation}</p>
                 </div>
                 <div className="col-6 col-md-3  ">
-                <label classname ="DEPARTMENT" style ={{color:"#b0b0b3"}}>DEPARTMENT</label>
+                <label classname ="DEPARTMENT" style ={{color:"#41464b"}}>DEPARTMENT</label>
                 <p>{userInformation.department}</p>
                 </div>
                 <div className="col-6 col-md-3 ">
-                <label classname ="bussiness unit"  style ={{color:"#b0b0b3"}}>BUSSINESS UNIT</label>
+                <label classname ="bussiness unit"  style ={{color:"#41464b"}}>BUSSINESS UNIT</label>
                 <p>Services</p>
                 </div>
                 <div className="col-6 col-md-3">
-                <label classname ="reporting" style ={{color:"#b0b0b3"}}>REPORTING TO</label>
+                <label classname ="reporting" style ={{color:"#41464b"}}>REPORTING TO</label>
                 <p>{userInformation.reportingManager}</p>
                 </div>
                 <div className="col-6 col-md-3 mt-md-3 ">
-                <label classname ="EmpNo" style ={{color:"#b0b0b3"}}>EMP NO</label>
+                <label classname ="EmpNo" style ={{color:"#41464b"}}>EMP NO</label>
                 <p>{userInformation.employeeCode}</p>
                 </div>
                 <div className="col-6 col-md-3  mt-md-3">
-                <label classname ="team" style ={{color:"#b0b0b3"}}>Team</label>
+                <label classname ="team" style ={{color:"#41464b"}}>Team</label>
                 <p>{userInformation.team}</p>
                 </div>
                 <div className="col-6 col-md-3 mt-md-3 ">
-                <label classname ="band" style ={{color:"#b0b0b3"}}>Band</label>
+                <label classname ="band" style ={{color:"#41464b"}}>Band</label>
                 <p>{userInformation.band}</p>
                 </div>
                
@@ -95,49 +95,29 @@ useEffect(()=>{
             </div>
           </Card.Body>
         </Card>   
-
-        {/* {feedsDB.length < 1 ? (
-          <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
-            <Card.Body>
-              <img
-                src={defaultPost}
-                style={{
-                  height: "150px",
-                  marginBottom: "10px",
-                  marginTop: "10px",
-                }}
-              />
-              <br />
-              <p style={{ textAlign: "center" }}>
-                {" "}
-                There are no announcements here{" "}
-              </p>
-            </Card.Body>
-          </Card>
-        ) : (
-          feedsDB.map((data, index) => (
-            <Card
-              key={index}
-              style={{ marginTop: "20px", marginBottom: "20px" }}
-            >
-              <Card.Body>
-                <h6> {data} </h6>
-              </Card.Body>
-            </Card>
-          ))
-        )} */}
+        <h4 style={{ fontWeight: "400" }}>Skills To Be Filled </h4>
         <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
             <Card.Body>
-            <h2 style={{fontFamily: "Georgia, serif"}}>Skills:</h2>
-              <br />
-              {userSkills.map((ele,i)=>{
-                return(
-                  <h5 style={{fontFamily: "Georgia, serif"}}>{i+1}. {ele.questionName}</h5>
-                )
+              {userSkills.map((ele)=>{
+                //  <h5>{ele.questionName}</h5>
 
-              })}
-              
-
+                  return <Card
+                  style={{
+                    marginTop: "20px",
+                    marginBottom: "20px",
+                    backgroundColor: "#0d2c48",
+                    color: "white",
+                    width:'450px'
+                  }}
+                >
+                  <Card.Body style={{padding:'10px'}}>
+                    <Card.Title style={{ fontSize: "22px" }}> {ele.questionName}
+                    <img style={{ height: "30px",width: "40px",float: "right"}} 
+                    src="https://img.icons8.com/external-outline-astudio/132/ffffff/external-arrow-arrow-outline-astudio-25.png"/>    
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+                   })}
             </Card.Body>
           </Card> 
       </div> 

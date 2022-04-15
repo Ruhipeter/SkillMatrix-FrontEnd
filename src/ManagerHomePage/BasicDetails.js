@@ -82,7 +82,7 @@ export default function BasicDetails() {
             })
             .catch((err) => console.log(err));
         }
-        empAPI();
+        // empAPI();
         navigate('/SkillMatrix');
   }
   return (

@@ -18,7 +18,7 @@ function Sidebar() {
           </li>
           </NavLink>
 
-          <NavLink to="/Approvals" as="li" >
+          <NavLink to="/ApprovalPage" as="li" >
           <li>
           <img
             style={{ height: "30px", width: "30px" }}
@@ -36,7 +36,7 @@ function Sidebar() {
           <h6>Add Employee</h6>
           </li>
           </NavLink>
-          <NavLink to="/Employees" as="li" >
+          {/* <NavLink to="/Employees" as="li" >
           <li>
           <img
             style={{ height: "30px", width: "30px" }}
@@ -44,7 +44,7 @@ function Sidebar() {
           />
           <h6>Employee Directory</h6>
           </li>
-          </NavLink>
+          </NavLink> */}
       </ul>
     </>
   );

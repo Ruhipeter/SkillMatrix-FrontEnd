@@ -31,9 +31,8 @@ import axios from "axios";
 export default function TeamSkillDetails() {
   let navigate = useNavigate();
 
-  const skillsURL = `https://localhost:7074/api/Skills/GetAllSkills`;
-  const quesURL =
-    "https://localhost:7074/api/EmployeeQuestions/PostEmployeeQuestions";
+  const skillsURL = `https://localhost:7074/api/TeamSkills/GetAllTeamSkills`;
+  const quesURL = "https://localhost:7074/api/EmployeeTeamQuestions/PostEmployeeTeamQuestions";
   const [skillDB, setSkillsDB] = useState([]);
   const [quesDB, setQuesDB] = useState([]);
 
@@ -59,11 +58,11 @@ export default function TeamSkillDetails() {
   };
 
   const handleSubmit = () => {
-    navigate("/TeamSkillDetails");
     async function quesAPI() {
       const empQues = {
         array: quesDB,
-        empId: 3,
+        empId: 5,
+        teamId:1
       };
       await axios
         .post(quesURL, empQues)
@@ -73,6 +72,7 @@ export default function TeamSkillDetails() {
         .catch((err) => console.log(err));
     }
     // quesAPI();
+    navigate("/ManagerHomePage");
   };
   return (
     <>
@@ -87,7 +87,7 @@ export default function TeamSkillDetails() {
             className="col-11 col-md-7 col-sm-11"
             style={{ marginLeft: "20px" }}
           >
-            <h4 style={{ marginTop: "20px" }}>Skill Matrix Details</h4>
+            <h4 style={{ marginTop: "20px" }}>MS .NET Skills</h4>
             <Card
               style={{
                 marginTop: "30px",
@@ -118,19 +118,19 @@ export default function TeamSkillDetails() {
                     <TableBody>
                       {skillDB.map((data) => (
                         <TableRow
-                          key={data.skillId}
+                          key={data.teamSkillId}
                           sx={{
                             "&:last-child td, &:last-child th": { border: 0 },
                           }}
                         >
                           <TableCell component="th" scope="row">
-                            <h5>{data.skillName} </h5>
+                            <h5>{data.teamSkillName} </h5>
                           </TableCell>
                           <TableCell align="right">
-                            {!quesDB.includes(data.skillId) && (
+                            {!quesDB.includes(data.teamSkillId) && (
                               <IconButton
                                 aria-label="add"
-                                onClick={(e) => addQues(e, data.skillId)}
+                                onClick={(e) => addQues(e, data.teamSkillId)}
                               >
                                 <AddBoxIcon
                                   color="primary"
@@ -138,10 +138,10 @@ export default function TeamSkillDetails() {
                                 />
                               </IconButton>
                             )}
-                            {quesDB.includes(data.skillId) && (
+                            {quesDB.includes(data.teamSkillId) && (
                               <IconButton
                                 aria-label="remove"
-                                onClick={(e) => removeQues(e, data.skillId)}
+                                onClick={(e) => removeQues(e, data.teamSkillId)}
                               >
                                 <RemoveCircleIcon
                                   sx={{ fontSize: 40, color: "#c72130" }}

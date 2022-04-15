@@ -10,6 +10,9 @@ import SkillMatrix from './ManagerHomePage/skillMatrix';
 import TeamSkillDetails from './ManagerHomePage/teamSkillDetails';
 import { useSelector } from 'react-redux';
 import Skills from './Skills';
+import ApprovalPage from './ManagerHomePage/ApprovalPage';
+import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
+
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
   if (loggedIn == "true") {
@@ -87,6 +90,27 @@ function App() {
           element={
             <RequireAuth redirectTo="/">
               <TeamSkillDetails/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+
+      <Routes>
+        <Route
+          path="/ApprovalPage"
+          element={
+            <RequireAuth redirectTo="/">
+              <ApprovalPage/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/EmployeeRating"
+          element={
+            <RequireAuth redirectTo="/">
+              <EmpRatingPage/>
             </RequireAuth>
           }
         />
