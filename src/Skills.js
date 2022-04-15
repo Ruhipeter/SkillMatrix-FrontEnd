@@ -15,6 +15,7 @@ import SubSkillsWithRatings from './SubSkillsWithRatings'
 export default function Skills() {
   let id = useParams();
   const [subSkill,setSubSkills]=useState([]);
+  
   const [subSkillWithRatings,setSubSkillsWithRatings]=useState([]);
   useEffect(()=>{
       axios.get(`https://localhost:7074/api/SubSkills/GetSubSkillsBySkillId?skillId=${id.qid}`).then((res)=>{
@@ -33,7 +34,6 @@ export default function Skills() {
     })
 },[id.qid])
   
-console.log(subSkillWithRatings)
   return (
     <>
     <TopBar/>
