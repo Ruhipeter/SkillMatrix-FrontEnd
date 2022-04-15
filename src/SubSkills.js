@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from '@mui/icons-material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import ReactStars from 'react-rating-stars-component'
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,6 +11,9 @@ import axios from 'axios'
 function SubSkills(props) {
     const navigate=useNavigate();
     const dispatch=useDispatch();
+    const val={
+        "values": [],
+      }
     const empId=localStorage.getItem("EmpId");
     const userSkills = useSelector(state =>state.rootReducer.userSkill.userSkills);
     const obj={
@@ -25,9 +28,7 @@ function SubSkills(props) {
         if(empId){
             dispatch(listUserSkills(empId));
         }
-        
     },[])
-
     const moveNext = (e) => {
         console.log("skills",userSkills)
         let NextRoute="";
@@ -53,7 +54,7 @@ function SubSkills(props) {
         })
         moveNext(e);
       };
-      
+     console.log(val.values) 
     return (
         <>
             <div className="col-md-7">
@@ -70,7 +71,7 @@ function SubSkills(props) {
                                     <Card.Body>
                                         <div>
                                             {props.subSkill.map((ele, i) => {
-                                                console.log(ele)
+                                                val.values.push(0);
                                                 return (
                                                     <div key={i}>
                                                         <div className="wrapper" >
@@ -82,7 +83,7 @@ function SubSkills(props) {
                                                                 
                                                                 <ReactStars
                                                                     count={6}
-                                                                    value={0}
+                                                                    value={val.values[i]?0:0}
                                                                     edit={true}
                                                                     size={50}
                                                                     onChange={(e,name) => ratingChanged(e,ele.subSkillId)}
