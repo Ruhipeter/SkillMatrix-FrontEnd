@@ -52,7 +52,7 @@ function App() {
     
       <Routes>
         <Route
-          path="/Manager Home Page"
+          path="/ManagerHomePage"
           element={
             <RequireAuth redirectTo="/">
               <ManagerHomePage />

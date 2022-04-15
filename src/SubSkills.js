@@ -25,6 +25,7 @@ function SubSkills(props) {
         if(empId){
             dispatch(listUserSkills(empId));
         }
+        
     },[])
 
     const moveNext = (e) => {
@@ -77,7 +78,7 @@ function SubSkills(props) {
                                                             <div className="skill">
                                                                 <h4>{ele.subSkillName}:</h4>
                                                             </div>
-                                                            <div>
+                                                            <div className="ReactStars">
                                                                 
                                                                 <ReactStars
                                                                     count={6}

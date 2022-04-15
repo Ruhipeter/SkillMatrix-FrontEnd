@@ -4,13 +4,11 @@ import QuickAccess from '../ManagerHomePage/quickAccess'
 import Sidebar from '../ManagerHomePage/sidebar'
 import TopBar from '../ManagerHomePage/topBar'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../features/userSlice'
 import indexCss from "../css/index.css";
 
 
 export default function ManagerHomePage() {
-  const User=useSelector(selectUser); 
-  console.log(User);
+
   return (
     <>
     <TopBar/>
