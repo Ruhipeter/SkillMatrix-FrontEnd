@@ -145,15 +145,6 @@ function EmployeeSkillRatings(props) {
                   {data.isApproved == 0 && (
                     <div>
                       <Button
-                        variant="danger"
-                        style={{ marginLeft: "15px" }}
-                        onClick={(e) =>
-                          declineRating(e, data.empSubSkillsRatingsId)
-                        }
-                      >
-                        <BsXLg />
-                      </Button>
-                      <Button
                         variant="success"
                         style={{ marginLeft: "15px" }}
                         onClick={(e) =>
@@ -161,6 +152,15 @@ function EmployeeSkillRatings(props) {
                         }
                       >
                         <BsCheckLg />
+                      </Button>
+                      <Button
+                        variant="danger"
+                        style={{ marginLeft: "15px" }}
+                        onClick={(e) =>
+                          declineRating(e, data.empSubSkillsRatingsId)
+                        }
+                      >
+                        <BsXLg />
                       </Button>
                     </div>
                   )}
