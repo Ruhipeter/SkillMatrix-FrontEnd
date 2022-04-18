@@ -124,7 +124,7 @@ function Feeds() {
           <Card.Body>
             <Card.Title style={{ fontSize: "15px" }}>Today </Card.Title>
             <Card.Title style={{ fontSize: "26px" }}> Pending Approvals 
-            <span style={{float:'right', fontSize:'35px'}}>+3</span>         
+            <span style={{fontSize:'35px',float:'right'}}>+3 <a href="/ApprovalPage" style={{fontSize:'15px'}}>View</a></span>         
             </Card.Title>
           </Card.Body>
         </Card>
