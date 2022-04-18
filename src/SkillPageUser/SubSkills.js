@@ -35,14 +35,12 @@ function SubSkills(props) {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
         NextRoute = `/${userSkills[i + 1].questionName}/${
           userSkills[i + 1].questionId
-        }`;
-      
-      }
+        }`;}
       if(NextRoute==="")
       {
-        NextRoute="/Home";
-        console.log("route:",NextRoute)
+        NextRoute="/home";
       }
+      
     });
 
     navigate(NextRoute);
