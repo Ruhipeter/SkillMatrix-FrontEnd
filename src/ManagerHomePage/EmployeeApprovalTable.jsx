@@ -14,6 +14,13 @@ const handleClick = (event, cellValues) => {
 };
 
 const RmId = localStorage.getItem("EmpId");
+const datagridSx = {
+  "& .MuiDataGrid-columnHeaders": {
+    fontSize: 17,
+    backgroundColor: '#273143',
+    color: "white"
+  }
+}
 
 const columns = [
   {
@@ -112,6 +119,7 @@ export default function ApprovalDataTable() {
         style={{
           fontSize:"17px"
         }}
+        sx={datagridSx}
       />
     </div>
   );
