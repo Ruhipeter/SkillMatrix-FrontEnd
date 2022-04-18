@@ -11,24 +11,24 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CallIcon from "@mui/icons-material/Call";
 import { NavLink } from "react-router-dom";
+import { listUserSkills } from "../Redux/actions/userSkillsActions";
+import { useDispatch, useSelector } from "react-redux";
+import EmployeeSkillRatings from "./EmployeeSkillRatings";
 
 export default function EmpRatingPage() {
   const [skillsDB, setSkillsDB] = useState([]);
   const [empDB , setEmpDB] = useState([])
+  const dispatch=useDispatch();
+  const userSkills = useSelector(state =>state.rootReducer.userSkill.userSkills);
 
   const skillsURL = "https://localhost:7074/api/SubSkills/GetAllSubSkills";
   const empId = localStorage.getItem('ApprovalEmpId')
   const empURL = `https://localhost:7074/api/Employee/GetEmployeeByEmpId?empId=${empId}`
 
   useEffect(() => {
-    async function skillsAPI() {
-      await axios.get(skillsURL).then((response) => {
-        setSkillsDB(response.data);
-      });
-    }
-    skillsAPI();
+    dispatch(listUserSkills(empId))
   }, []);
-
+  console.log(userSkills)
   useEffect(() => {
     async function empAPI() {
       await axios.get(empURL).then((response) => {
@@ -129,35 +129,19 @@ export default function EmpRatingPage() {
                                  ))}
             </Card>
             <h4>Skill Matrix Ratings</h4>
-            <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
-              <Card.Body>
-                <h3 style={{fontSize:'40px',fontWeight:'400'}}>Generic Skills</h3>
-                <br/>
-                <div>
-                  <Table hover>
-                    <tbody>
-                      {skillsDB.map((data) => (
-                        <tr key={data.subSkillsId}>
-                          <td>{data.subskillName}</td>
-                          <td>5</td>
-                          <td>
-                            <Form.Select
-                              defaultValue="Select Reporting Managers"
-                            >
-                              <option>Pending</option>
-                              <option>Approved</option>
-                              <option>Declined</option>
-
-                    
-                            </Form.Select>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </Table>
+            
+                      {userSkills.map((data) => (
+                        <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
+                        <Card.Body>
+                          <h3 style={{fontSize:'40px',fontWeight:'400'}}>{data.questionName}</h3>
+                          <br/>
+                          <div>
+                            <EmployeeSkillRatings SkillId={data.questionId} empId={empId}/>
                 </div>
               </Card.Body>
             </Card>
+                      ))}
+                    
           </div>
         </div>
       </div>

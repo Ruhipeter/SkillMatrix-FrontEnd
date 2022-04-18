@@ -18,8 +18,8 @@ function LoginPage({loggedIn,setLoggedIn}) {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData={
-      "username":username,
-      "password":password
+      "username":"ruchika@gmail.com",
+      "password":"ruchika"
     }
    
     e.preventDefault()
