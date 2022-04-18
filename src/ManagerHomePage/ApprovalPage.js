@@ -22,7 +22,7 @@ export default function ApprovalPage() {
           </div>
 
           <div className="col-11 col-md-10 col-sm-11" style={{marginLeft:"20px"}}>
-            <h2 style={{marginTop:'20px',marginBottom:'20px'}}>Employee Rating Approval Requests</h2>
+            <h2 style={{marginTop:'20px',marginBottom:'20px'}}>Approval Requests</h2>
           <Card
               style={{
                 marginTop: "30px",

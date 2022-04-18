@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import ratingCss from "../css/ratings.css"
+
 
 const handleClick = (event, cellValues) => {
   console.log(cellValues.row.empId);
@@ -16,28 +18,29 @@ const RmId = localStorage.getItem("EmpId");
 const columns = [
   {
     field: "empId",
-    headerName: "Emp_ID",
+    headerName: "Emp ID",
     sortable: true,
     filter: true,
     width: 80,
+    headerClassName:'rowClass'
   },
   {
     field: "employeeCode",
-    headerName: "Employee_Code",
+    headerName: "Employee Code",
     sortable: true,
     filter: true,
     width: 150,
   },
   {
     field: "name",
-    headerName: "Employee_Name",
+    headerName: "Employee Name",
     sortable: true,
     filter: true,
     width: 150,
   },
   {
     field: "reportingManager",
-    headerName: "Reporting_Manager",
+    headerName: "Reporting Manager",
     sortable: true,
     filter: true,
     width: 170,
@@ -72,6 +75,7 @@ const columns = [
           <Button
             variant="contained"
             color="primary"
+            style={{textTransform :'capitalize'}}
             onClick={(event) => {
               handleClick(event, cellValues);
             }}
