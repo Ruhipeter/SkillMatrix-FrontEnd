@@ -30,7 +30,6 @@ export default function Skills() {
     axios.get(`https://localhost:7074/api/SubSkillsRatings/GetSubSkillRatingBySkillIdAndEmpId?skillId=${id.qid}&empId=${empId}`).then((res)=>{
       setSubSkillsWithRatings(res.data)
     }).catch((err)=>{
-      console.log(err);
     })
 },[id.qid])
   

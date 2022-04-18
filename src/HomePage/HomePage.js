@@ -4,27 +4,21 @@ import QuickAccess from './quickAccess'
 import Sidebar from './sidebar'
 import TopBar from './topBar'
 import { useSelector } from 'react-redux'
-import Toast from 'react-bootstrap/Toast'
-import { ToastContainer } from 'react-bootstrap'
+import ToastComp from './ToastComp'
+import { useLocation } from 'react-router-dom'
 
 
 export default function HomePage() {
-  const [show, setShow] = useState(false);
 
+  const location = useLocation();
+  if(location.state){
+    console.log(location)
+  }
+  
   return (
     <>
     <TopBar/>
-    {[
-  'Success',
-].map((variant, idx) => (
-  <ToastContainer  position='bottom-end'>
-  <Toast className="d-inline-block m-1" bg={variant.toLowerCase()} key={idx} onClose={() => setShow(false)} show={show} delay={3000} autohide>
-    <Toast.Body className='text-white'>
-      Data Submitted Successfully
-    </Toast.Body>
-  </Toast>
-  </ToastContainer>
-))}
+    
       <div className="container-fluid">
         <div className="row">
           <div className="col-1 col-md-1 col-sm-1 sideNav">
@@ -36,8 +30,12 @@ export default function HomePage() {
           </div>
           <div className="col-11 col-md-7 col-sm-11 m-sm-5 m-md-0"  >
               <Feeds />
+              {location.state &&
+        <ToastComp setShow={true}/>}
           </div>
+          
         </div>
+        
       </div>
     </>
   )

@@ -1,16 +1,18 @@
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
-import React, { useEffect } from "react";
-import { Button, Card } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Rating_info from "./Rating_info";
 import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import axios from "axios";
+import ToastComp from "../HomePage/ToastComp";
 
 function SubSkills(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const reactStars=useRef();
   const empId = localStorage.getItem("EmpId");
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
@@ -27,9 +29,9 @@ function SubSkills(props) {
       dispatch(listUserSkills(empId));
     }
   }, []);
-
+  const location = useLocation();
+ 
   const moveNext = (e) => {
-    console.log("skills", userSkills);
     let NextRoute = "";
     userSkills.map((ele, i) => {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
@@ -39,11 +41,47 @@ function SubSkills(props) {
       if(NextRoute==="")
       {
         NextRoute="/home";
+
+      }
+      
+      
+    });
+
+    navigate(NextRoute);
+  };
+  const movePrev = (e) => {
+    let NextRoute = "";
+    userSkills.map((ele, i) => {
+      if (ele.questionId == props.qId && userSkills[i - 1]) {
+        NextRoute = `/${userSkills[i - 1].questionName}/${
+          userSkills[i - 1].questionId
+        }`;}
+      if(NextRoute==="")
+      {
+        NextRoute="/home";
+
       }
       
     });
 
     navigate(NextRoute);
+  };
+  const moveNextwithSubmit = (e) => {
+    let NextRoute = "";
+    userSkills.map((ele, i) => {
+      if (ele.questionId == props.qId && userSkills[i + 1]) {
+        NextRoute = `/${userSkills[i + 1].questionName}/${
+          userSkills[i + 1].questionId
+        }`;}
+      if(NextRoute==="")
+      {
+        NextRoute="/home";
+
+      }
+      
+    });
+
+    navigate(NextRoute,{ state: {setShow:true,} });
   };
 
   const ratingChanged = (newRating, id) => {
@@ -62,11 +100,10 @@ function SubSkills(props) {
         obj
       )
       .then((res) => {
-        console.log(res.data);
       });
-    moveNext(e);
+    moveNextwithSubmit(e);
   };
-
+console.log(obj)
   return (
     <>
       <div className="col-md-7">
@@ -83,17 +120,19 @@ function SubSkills(props) {
                   <Card.Body>
                     <div>
                       {props.subSkill.map((ele, i) => {
-                        console.log(ele);
+                        obj.subskillRatingArr.push([ele.subSkillId, 0]);
                         return (
                           <div key={i}>
                             <div className="wrapper">
                               <div className="skill">
                                 <h4>{ele.subSkillName}:</h4>
+                                
                               </div>
-                              <div className="ReactStars">
-                                <ReactStars
-                                  count={6}
+                              <div className="ReactStars" ref={reactStars}>
+                              <ReactStars
+                                  count={5}
                                   value={0}
+                                  key={Math.random()}
                                   edit={true}
                                   size={50}
                                   onChange={(e, name) =>
@@ -111,18 +150,23 @@ function SubSkills(props) {
                   </Card.Body>
                 </div>
               </div>
+              
             </Card>
+            
           </div>
           <br />
-          <Button
+          
+        </div>
+        <Button
             className="SubmitBtn"
+            size='lg'
             type="button"
             variant="primary"
             onClick={(e) => Submit(e)}
+            style={{marginLeft:'82%'}}
           >
             Submit & Next <ArrowRight />
           </Button>{" "}
-        </div>
       </div>
 
       <div className="col-md-1"></div>
@@ -140,6 +184,16 @@ function SubSkills(props) {
               </Button>{" "}
             </>
           )} */}
+          <ButtonGroup className="me-2" aria-label="First group">
+        <Button
+          className="prevBtn"
+          onClick={(e) => movePrev(e)}
+          type="button"
+          variant="outline-dark"
+        ><ArrowLeft />Previous Section</Button>      
+
+        </ButtonGroup>
+        <ButtonGroup className="me-2" aria-label="First group">
         <Button
           className="nextBtn"
           onClick={(e) => moveNext(e)}
@@ -148,7 +202,13 @@ function SubSkills(props) {
         >
           Next Section <ArrowRight />
         </Button>{" "}
+        </ButtonGroup>
+        
+        {location.state &&
+        <ToastComp setShow={true}/>}
+   
       </div>
+      
     </>
   );
 }

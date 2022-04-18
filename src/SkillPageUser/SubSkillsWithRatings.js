@@ -1,14 +1,14 @@
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
-import { Button, Card } from "react-bootstrap";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Rating_info from "./Rating_info";
 import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import axios from "axios";
-import { BsFillExclamationTriangleFill } from "react-icons/bs";
-import { BsCheckCircleFill, BsXSquareFill } from "react-icons/bs";
+import { AiFillExclamationCircle } from "react-icons/ai";
+import { BsCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 
 function SubSkillsWithRatings(props) {
   const navigate = useNavigate();
@@ -42,19 +42,40 @@ function SubSkillsWithRatings(props) {
   // }, [props.qId])
 
   const moveNext = (e) => {
-    console.log("skills", userSkills);
     let NextRoute = "";
     userSkills.map((ele, i) => {
-      if (ele.questionId == props.qId) {
+      if (ele.questionId == props.qId && userSkills[i + 1]) {
         NextRoute = `/${userSkills[i + 1].questionName}/${
           userSkills[i + 1].questionId
-        }`;
-        console.log(NextRoute);
+        }`;}
+      if(NextRoute==="")
+      {
+        NextRoute="/home";
+
       }
+      
     });
 
     navigate(NextRoute);
   };
+  const movePrev = (e) => {
+    let NextRoute = "";
+    userSkills.map((ele, i) => {
+      if (ele.questionId == props.qId && userSkills[i - 1]) {
+        NextRoute = `/${userSkills[i - 1].questionName}/${
+          userSkills[i - 1].questionId
+        }`;}
+      if(NextRoute==="")
+      {
+        NextRoute="/home";
+
+      }
+      
+    });
+
+    navigate(NextRoute);
+  };
+
 
   return (
     <>
@@ -81,7 +102,7 @@ function SubSkillsWithRatings(props) {
                               </div>
                               <div>
                                 <ReactStars
-                                  count={6}
+                                  count={5}
                                   value={ele.ratings}
                                   edit={false}
                                   size={50}
@@ -90,8 +111,8 @@ function SubSkillsWithRatings(props) {
                                 {ele.isApproved == 0 ? (
                                   <p style={{ paddingLeft: "60%" }}>
                                     {" "}
-                                    <BsFillExclamationTriangleFill
-                                      color={"#1e90ff"}
+                                    <AiFillExclamationCircle
+                                      color={"#FFA500"}
                                       size={25}
                                     />{" "}
                                     Pending for approval
@@ -100,7 +121,7 @@ function SubSkillsWithRatings(props) {
                                   <p style={{ paddingLeft: "60%" }}>
                                     {" "}
                                     <BsCheckCircleFill
-                                      size={20}
+                                      size={22}
                                       color={"green"}
                                     />{" "}
                                     Approved{" "}
@@ -108,8 +129,8 @@ function SubSkillsWithRatings(props) {
                                 ) : (
                                   <p style={{ paddingLeft: "60%" }}>
                                     {" "}
-                                    <BsXSquareFill
-                                      size={20}
+                                    <BsXCircleFill
+                                      size={22}
                                       color={"#ce2029"}
                                     />{" "}
                                     Request Declined{" "}
@@ -136,6 +157,16 @@ function SubSkillsWithRatings(props) {
 
       <div className="col-md-3">
         <Rating_info />
+        <ButtonGroup className="me-2" aria-label="First group">
+        <Button
+          className="prevBtn"
+          onClick={(e) => movePrev(e)}
+          type="button"
+          variant="outline-dark"
+        ><ArrowLeft />Previous Section</Button>      
+
+        </ButtonGroup>
+        <ButtonGroup className="me-2" aria-label="First group">
         <Button
           className="nextBtn"
           onClick={(e) => moveNext(e)}
@@ -144,6 +175,7 @@ function SubSkillsWithRatings(props) {
         >
           Next Section <ArrowRight />
         </Button>{" "}
+        </ButtonGroup>
       </div>
     </>
   );

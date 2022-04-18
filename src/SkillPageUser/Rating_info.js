@@ -47,8 +47,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={1}
+                count={5}
+                value={0}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"
@@ -59,8 +59,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={2}
+                count={5}
+                value={1}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"
@@ -71,8 +71,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={3}
+                count={5}
+                value={2}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"
@@ -83,8 +83,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={4}
+                count={5}
+                value={3}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"
@@ -95,8 +95,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={5}
+                count={5}
+                value={4}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"
@@ -107,8 +107,8 @@ export default function (props) {
             </div>
             <div>
               <ReactStars
-                count={6}
-                value={6}
+                count={5}
+                value={5}
                 edit={false}
                 size={35}
                 activeColor="#0073e6"

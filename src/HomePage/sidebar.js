@@ -8,12 +8,13 @@ import { listUserSkills } from "../Redux/actions/userSkillsActions";
 function Sidebar() {
   const dispatch=useDispatch();
   const userSkills = useSelector(state =>state.rootReducer.userSkill.userSkills);
+  // const route='/'+ userSkills[0].questionName+'/'+userSkills[0].questionId;
 
   useEffect(()=>{
     const empId=localStorage.getItem("EmpId");
     dispatch(listUserSkills(empId));
   },[])
- 
+ console.log(userSkills[0])
   return (
     <>
       <ul>
@@ -26,22 +27,20 @@ function Sidebar() {
             <h6>Home</h6>
           </li>
         </NavLink>
-        {userSkills.map((ele, i) => {
-          // const route='/'+ele.questionName.replace(/ /g, '')+'/'+ele.questionId;
-          const route='/'+ele.questionName+'/'+ele.questionId;
-          return (
-            <NavLink to={route} as="li" >
+      
+           { userSkills[0] && 
+           <NavLink to={`/${userSkills[0].questionName}/${userSkills[0].questionId}`} as="li" >
               <li>
                 <img
                   style={{ height: "30px", width: "30px" }}
-                  src={ele.questionLogo}
+                  src={userSkills[0].questionLogo}
                 />
-                <h6>{ele.questionName}</h6>
+                <h6>Skills</h6>
               </li>
             </NavLink>
-          )
+        }
 
-        })} 
+     
       </ul>
       {/* <ul>
         <NavLink to="/home" as="li" >
