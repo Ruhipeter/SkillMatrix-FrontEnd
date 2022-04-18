@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Rating_info from "./Rating_info";
-import { listUserSkills } from "./Redux/actions/userSkillsActions";
+import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import axios from "axios";
 import { BsFillExclamationTriangleFill } from "react-icons/bs";
 import { BsCheckCircleFill, BsXSquareFill } from "react-icons/bs";

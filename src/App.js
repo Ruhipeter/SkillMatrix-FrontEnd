@@ -9,7 +9,7 @@ import BasicDetails from './ManagerHomePage/BasicDetails';
 import SkillMatrix from './ManagerHomePage/skillMatrix';
 import TeamSkillDetails from './ManagerHomePage/teamSkillDetails';
 import { useSelector } from 'react-redux';
-import Skills from './Skills';
+import Skills from './SkillPageUser/Skills';
 import ApprovalPage from './ManagerHomePage/ApprovalPage';
 import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
 

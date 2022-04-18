@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Rating_info from "./Rating_info";
-import { listUserSkills } from "./Redux/actions/userSkillsActions";
+import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import axios from "axios";
 
 function SubSkills(props) {
@@ -32,14 +32,16 @@ function SubSkills(props) {
     console.log("skills", userSkills);
     let NextRoute = "";
     userSkills.map((ele, i) => {
-      if (ele.questionId == props.qId) {
+      if (ele.questionId == props.qId && userSkills[i + 1]) {
         NextRoute = `/${userSkills[i + 1].questionName}/${
           userSkills[i + 1].questionId
         }`;
+      
+      }
       if(NextRoute==="")
       {
-        NextRoute="/home";
-      }
+        NextRoute="/Home";
+        console.log("route:",NextRoute)
       }
     });
 

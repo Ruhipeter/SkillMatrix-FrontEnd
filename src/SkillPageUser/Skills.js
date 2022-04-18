@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
-import Sidebar from './HomePage/sidebar'
-import TopBar from './HomePage/topBar'
+import Sidebar from '../HomePage/sidebar'
+import TopBar from '../HomePage/topBar'
 import Rating_info from './Rating_info'
 import {useParams} from "react-router-dom";
 import axios from 'axios'
 import ReactStars from 'react-rating-stars-component'
 import SubSkills from './SubSkills'
 import { useDispatch, useSelector } from 'react-redux'
-import { listUserSkills } from './Redux/actions/userSkillsActions'
+import { listUserSkills } from '../Redux/actions/userSkillsActions'
 import SubSkillsWithRatings from './SubSkillsWithRatings'
 
 export default function Skills() {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import navCss from "./css/nav.css";
-import homeCss from "./css/home.css";
-import questionsCss from "./css/questions.css";
+import navCss from "../css/nav.css";
+import homeCss from "../css/home.css";
+import questionsCss from "../css/questions.css";
 import { Card, Button } from "react-bootstrap";
 import Buttons from "@mui/material/Button";
 import { BsPencilSquare } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component";
-import './css/Profile.css'
+import '../css/Profile.css'
 import { GrLinkNext } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import Rating_info from "./Rating_info";
