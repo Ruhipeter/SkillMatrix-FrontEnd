@@ -125,7 +125,7 @@ console.log(obj)
                           <div key={i}>
                             <div className="wrapper">
                               <div className="skill">
-                                <h4>{ele.subSkillName}:</h4>
+                                <h4>{ele.subSkillName}</h4>
                                 
                               </div>
                               <div className="ReactStars" ref={reactStars}>

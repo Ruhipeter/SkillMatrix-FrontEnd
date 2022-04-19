@@ -98,7 +98,7 @@ function SubSkillsWithRatings(props) {
                           <div key={i}>
                             <div className="wrapper">
                               <div className="skill">
-                                <h4>{ele.subSkillName}:</h4>
+                                <h4>{ele.subSkillName}</h4>
                               </div>
                               <div>
                                 <ReactStars
