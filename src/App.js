@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Skills from './SkillPageUser/Skills';
 import ApprovalPage from './ManagerHomePage/ApprovalPage';
 import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
+import ForgotPasswordPage from './login/forgotPassword'
 
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
@@ -32,6 +33,9 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} activeClassName="active" />
+      </Routes>
+      <Routes>
+        <Route path="/forgotPassword" element={<ForgotPasswordPage />} activeClassName="active" />
       </Routes>
       <Routes>
         <Route

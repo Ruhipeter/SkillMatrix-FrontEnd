@@ -1,4 +1,4 @@
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Feeds from "../ManagerHomePage/feed";
 import QuickAccess from "../ManagerHomePage/quickAccess";
 import Sidebar from "../ManagerHomePage/sidebar";
@@ -18,74 +18,85 @@ import {
 } from "react-bootstrap";
 
 export default function BasicDetails() {
-    let navigate = useNavigate(); 
+  let navigate = useNavigate();
 
-    const [empName,setEmpName] = useState("")
-    const [empEmail,setEmpMail] = useState("")
-    const [empCode,setEmpCode] = useState("")
-    const [empBand,setEmpBand] = useState("")
-    const [empDesig,setEmpDesig] = useState("")
-    const [empDept,setEmpDept] = useState("")
-    const [empLocation,setEmpLocation] = useState("")
-    const [empPassword,setEmpPassword] = useState("")
-    const [empTeam,setEmpTeam] = useState("")
-    const [empManager,setEmpManager] = useState("")
+  const [empName, setEmpName] = useState("");
+  const [empEmail, setEmpMail] = useState("");
+  const [empCode, setEmpCode] = useState("");
+  const [empBand, setEmpBand] = useState("");
+  const [empDesig, setEmpDesig] = useState("");
+  const [empDept, setEmpDept] = useState("");
+  const [empLocation, setEmpLocation] = useState("");
+  const [empPassword, setEmpPassword] = useState("");
+  const [empTeam, setEmpTeam] = useState("");
+  const [empManager, setEmpManager] = useState("");
 
-    const [teamDB, setTeamDB] = useState([])
-    const [ManagerDB , setManagerDB] = useState([])
-    const teamURL = "https://localhost:7074/api/Team/GetAllTeams"
-    const managerURL = "https://localhost:7074/api/Manager/GetAllManagers"
-    const empDataURL = "https://localhost:7074/api/Employee/CreateEmployee" 
+  const [teamDB, setTeamDB] = useState([]);
+  const [ManagerDB, setManagerDB] = useState([]);
+  const teamURL = "https://localhost:7074/api/Team/GetAllTeams";
+  const managerURL = "https://localhost:7074/api/Manager/GetAllManagers";
+  const empDataURL = "https://localhost:7074/api/Employee/CreateEmployee";
 
-    useEffect(()=>{
-      async function teamAPI() {
-        await axios.get(teamURL).then((response) => {
-          setTeamDB(response.data)
-        });
-      }
-      teamAPI();
-    },[])
+  const [validated, setValidated] = useState(false);
 
-    useEffect(()=>{
-      async function managerAPI() {
-        await axios.get(managerURL).then((response) => {
-          setManagerDB(response.data)
-        });
-      }
-      managerAPI();
-    },[])
+  useEffect(() => {
+    async function teamAPI() {
+      await axios.get(teamURL).then((response) => {
+        setTeamDB(response.data);
+      });
+    }
+    teamAPI();
+  }, []);
 
+  useEffect(() => {
+    async function managerAPI() {
+      await axios.get(managerURL).then((response) => {
+        setManagerDB(response.data);
+      });
+    }
+    managerAPI();
+  }, []);
 
-    const handleSubmit =(e)=>{
-      e.preventDefault()
-      const empData={
-        "id": 0,
-        "name": empName,
-        "email": empEmail,
-        "password": empPassword,
-        "employeeCode": empCode,
-        "reportingManager": empManager,
-        "location": empLocation,
-        "department": empDept,
-        "team": empTeam,
-        "band": empBand,
-        "designation": empDesig,
-        "status": true
-      }
-      console.log(empData)
-      localStorage.setItem("TeamId", empTeam);
-        
-          axios.post(empDataURL, empData)
-            .then((response) => {
-              console.log(response);
-              localStorage.setItem("EmpId", response.data.id);
-            })
-            .catch((err) => console.log(err));
-        
-        // empAPI();
-        navigate('/SkillMatrix');
-  }
-  
+  const handleSubmitBtn = (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    
+    e.preventDefault();
+    const empData = {
+      id: 0,
+      name: empName,
+      email: empEmail,
+      password: "string",
+      employeeCode: empCode,
+      reportingManager: empManager,
+      location: empLocation,
+      department: empDept,
+      team: empTeam,
+      band: empBand,
+      designation: empDesig,
+      status: true,
+    };
+    console.log(empData);
+    localStorage.setItem("TeamId", empTeam);
+
+    axios
+      .post(empDataURL, empData)
+      .then((response) => {
+        console.log(response);
+        localStorage.setItem("EmpId", response.data.id);
+      })
+      .catch((err) => console.log(err));
+
+    // empAPI();
+    if(validated == true){
+    navigate("/SkillMatrix");
+    }
+  };
+
   return (
     <>
       <TopBar />
@@ -108,34 +119,70 @@ export default function BasicDetails() {
               }}
             >
               <Card.Body>
-                <Form onSubmit={handleSubmit}>
+                <Form noValidate validated={validated} onSubmit={handleSubmitBtn}>
                   <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Employee Name</Form.Label>
+                      <Form.Label style={{ display: "flex" }}>
+                        Employee Name{" "}
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "18px",
+                            marginLeft: "3px",
+                          }}
+                        >
+                          *
+                        </p>
+                      </Form.Label>
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Name" onChange={e => setEmpName(e.target.value)}
+                        placeholder="Enter Name" required
+                        onChange={(e) => setEmpName(e.target.value)}
                       />
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                      <Form.Label>Enter Email</Form.Label>
+                      <Form.Label style={{ display: "flex" }}>
+                        Enter Email{" "}
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "18px",
+                            marginLeft: "3px",
+                          }}
+                        >
+                          *
+                        </p>
+                      </Form.Label>
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Email" onChange={e => setEmpMail(e.target.value)}
+                        placeholder="Enter Email" required
+                        onChange={(e) => setEmpMail(e.target.value)}
                       />
                     </Form.Group>
                   </Row>
 
                   <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Employee Code</Form.Label>
+                      <Form.Label style={{ display: "flex" }}>
+                        Employee Code{" "}
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "18px",
+                            marginLeft: "3px",
+                          }}
+                        >
+                          *
+                        </p>
+                      </Form.Label>
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Employee Code" onChange={e => setEmpCode(e.target.value)}
+                        placeholder="Enter Employee Code" required
+                        onChange={(e) => setEmpCode(e.target.value)}
                       />
                     </Form.Group>
 
@@ -144,7 +191,8 @@ export default function BasicDetails() {
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Employee Band" onChange={e => setEmpBand(e.target.value)}
+                        placeholder="Enter Employee Band"
+                        onChange={(e) => setEmpBand(e.target.value)}
                       />
                     </Form.Group>
                   </Row>
@@ -154,22 +202,36 @@ export default function BasicDetails() {
                     <Form.Control
                       size="lg"
                       type="text"
-                      placeholder="Enter Employee Designation" onChange={e => setEmpDesig(e.target.value)}
+                      placeholder="Enter Employee Designation" 
+                      onChange={(e) => setEmpDesig(e.target.value)}
                     />
                   </Form.Group>
 
                   <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Reporting Manager</Form.Label>
+                      <Form.Label style={{ display: "flex" }}>
+                        Reporting Manager{" "}
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "18px",
+                            marginLeft: "3px",
+                          }}
+                        >
+                          *
+                        </p>
+                      </Form.Label>
                       <Form.Select
                         size="lg"
-                        defaultValue="Select Reporting Managers"  onChange={e => setEmpManager(e.target.value)}
+                        defaultValue="Select Reporting Managers"
+                        onChange={(e) => setEmpManager(e.target.value)}
                       >
-                        <option >Select Reporting Manager</option>
-                        {ManagerDB.map((data)=>(
-                          <option value={data.id} key={data.id}>{data.name}</option>
+                        <option>Select Reporting Manager</option>
+                        {ManagerDB.map((data) => (
+                          <option value={data.id} key={data.id}>
+                            {data.name}
+                          </option>
                         ))}
-
                       </Form.Select>
                     </Form.Group>
 
@@ -178,30 +240,46 @@ export default function BasicDetails() {
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Employee Department"   onChange={e => setEmpDept(e.target.value)}
+                        placeholder="Enter Employee Department"
+                        onChange={(e) => setEmpDept(e.target.value)}
                       />
                     </Form.Group>
                   </Row>
 
                   <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Employee Team</Form.Label>
+                      <Form.Label style={{ display: "flex" }}>
+                        Employee Team{" "}
+                        <p
+                          style={{
+                            color: "red",
+                            fontSize: "18px",
+                            marginLeft: "3px",
+                          }}
+                        >
+                          *
+                        </p>
+                      </Form.Label>
                       <Form.Select
                         size="lg"
-                        defaultValue="Select Employee Team" onChange={e => setEmpTeam(e.target.value)}
+                        defaultValue="Select Employee Team" required
+                        onChange={(e) => setEmpTeam(e.target.value)}
                       >
-                        <option >Select Team</option>
-                        {teamDB.map((data)=>(
-                          <option value={data.id} key={data.id}>{data.name}</option>
+                        <option>Select Team </option>
+                        {teamDB.map((data) => (
+                          <option value={data.id} key={data.id}>
+                            {data.name}
+                          </option>
                         ))}
                       </Form.Select>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridPassword">
-                    <Form.Label>Location</Form.Label>
+                      <Form.Label>Location</Form.Label>
                       <Form.Select
                         size="lg"
-                        defaultValue="Select Employee Team"  onChange={e => setEmpLocation(e.target.value)}
+                        defaultValue="Select Employee Team" required
+                        onChange={(e) => setEmpLocation(e.target.value)}
                       >
                         <option>Select Employee Location</option>
                         <option>Gurugram</option>
@@ -210,20 +288,11 @@ export default function BasicDetails() {
                     </Form.Group>
                   </Row>
 
-                  <Row className="mb-4">
-                    <Form.Group as={Col} controlId="formGridEmail">
-                      <Col xs={6}>
-                      <Form.Label>Employee Login Password </Form.Label> 
-                      <Form.Control
-                        size="lg"
-                        type="text"
-                        placeholder="Enter Login Password"  onChange={e => setEmpPassword(e.target.value)}
-                      />
-                      </Col>
-                    </Form.Group>
-                  </Row> 
-
-                  <Button type="submit" onClick={(e)=>handleSubmit(e)} className="submitBtn">
+                  <Button
+                    type="submit"
+                    onClick={(e) => handleSubmitBtn(e)}
+                    className="submitBtn"
+                  >
                     Submit Details
                   </Button>
                 </Form>
@@ -231,7 +300,7 @@ export default function BasicDetails() {
             </Card>
           </div>
           <div className="col-11 col-md-3 col-sm-11 m-sm-5 m-md-0">
-            <div style={{marginTop:'150px'}}>
+            <div style={{ marginTop: "150px" }}>
               <h5>Steps To Follow </h5>
               <Card
                 style={{
@@ -241,13 +310,16 @@ export default function BasicDetails() {
                   color: "white",
                 }}
               >
-                <Card.Body style={{padding:'10px'}}>
-                  <Card.Title style={{ fontSize: "23px" , lineHeight:'2'}}>
-                    Employee Basic Details <img style={{height:'45px',width:'45px',float:"right"}} src="https://img.icons8.com/ios-glyphs/170/ffffff/ok--v1.png"/>
+                <Card.Body style={{ padding: "10px" }}>
+                  <Card.Title style={{ fontSize: "23px", lineHeight: "2" }}>
+                    Employee Basic Details{" "}
+                    <img
+                      style={{ height: "45px", width: "45px", float: "right" }}
+                      src="https://img.icons8.com/ios-glyphs/170/ffffff/ok--v1.png"
+                    />
                   </Card.Title>
                 </Card.Body>
               </Card>
-        
 
               <Card
                 style={{
@@ -262,7 +334,6 @@ export default function BasicDetails() {
                     Skill Matrix Details
                   </Card.Title>
                 </Card.Body>
-
               </Card>
 
               <Card
@@ -279,8 +350,6 @@ export default function BasicDetails() {
                   </Card.Title>
                 </Card.Body>
               </Card>
-
-
             </div>
           </div>
         </div>
