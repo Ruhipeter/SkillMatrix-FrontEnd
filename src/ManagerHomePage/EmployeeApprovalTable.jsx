@@ -101,7 +101,7 @@ export default function ApprovalDataTable() {
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7074/api/Employee/GetEmployeeByResourceManagerId?resourceManagerId=${RmId}`
+        `https://localhost:7074/api/Approvals/GetApprovalsByManagerId?managerId=${RmId}`
       )
       .then((res) => {
         console.log(res.data);

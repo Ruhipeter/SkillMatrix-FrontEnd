@@ -157,7 +157,8 @@ function SubSkillsWithRatings(props) {
 
       <div className="col-md-3">
         <Rating_info />
-        <ButtonGroup className="me-2" aria-label="First group">
+        <div style={{position:"fixed"}}>
+        <ButtonGroup className="me-2" aria-label="First group" >
         <Button
           className="prevBtn"
           onClick={(e) => movePrev(e)}
@@ -165,7 +166,7 @@ function SubSkillsWithRatings(props) {
           variant="outline-dark"
         ><ArrowLeft />Previous Section</Button>      
 
-        </ButtonGroup>
+        </ButtonGroup>{' '}
         <ButtonGroup className="me-2" aria-label="First group">
         <Button
           className="nextBtn"
@@ -175,7 +176,7 @@ function SubSkillsWithRatings(props) {
         >
           Next Section <ArrowRight />
         </Button>{" "}
-        </ButtonGroup>
+        </ButtonGroup></div>
       </div>
     </>
   );

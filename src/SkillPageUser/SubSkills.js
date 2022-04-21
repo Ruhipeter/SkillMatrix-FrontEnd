@@ -12,7 +12,6 @@ import ToastComp from "../HomePage/ToastComp";
 function SubSkills(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const reactStars=useRef();
   const empId = localStorage.getItem("EmpId");
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
@@ -30,25 +29,28 @@ function SubSkills(props) {
     }
   }, []);
   const location = useLocation();
- 
-  const moveNext = (e) => {
-    let NextRoute = "";
-    userSkills.map((ele, i) => {
-      if (ele.questionId == props.qId && userSkills[i + 1]) {
-        NextRoute = `/${userSkills[i + 1].questionName}/${
-          userSkills[i + 1].questionId
-        }`;}
-      if(NextRoute==="")
-      {
-        NextRoute="/home";
+//  console.log(location.state)
+//   const moveNext = (e) => {
+//     let NextRoute =``;
+//     let data="";
+//     userSkills.map((ele, i) => {
+//       if (ele.questionId == props.qId && userSkills[i + 1]) {
+//         NextRoute = `/${userSkills[i + 1].questionName}/${
+//           userSkills[i + 1].questionId }`;
+//           data=userSkills[i].questionName;
+//       }
+//       else if(ele.questionId == props.qId)
+//       {
+//         NextRoute="/home";
+//         data=userSkills[i].questionName;
 
-      }
+//       }
       
       
-    });
+//     });
 
-    navigate(NextRoute);
-  };
+//     navigate(NextRoute,{ state: {setShow:true,data:data,} });
+//   };
   const movePrev = (e) => {
     let NextRoute = "";
     userSkills.map((ele, i) => {
@@ -59,7 +61,8 @@ function SubSkills(props) {
       if(NextRoute==="")
       {
         NextRoute="/home";
-
+        
+        
       }
       
     });
@@ -68,20 +71,36 @@ function SubSkills(props) {
   };
   const moveNextwithSubmit = (e) => {
     let NextRoute = "";
+    let data="";
     userSkills.map((ele, i) => {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
         NextRoute = `/${userSkills[i + 1].questionName}/${
-          userSkills[i + 1].questionId
-        }`;}
-      if(NextRoute==="")
+          userSkills[i + 1].questionId}`;
+        data=userSkills[i].questionName;
+        
+      }
+      else if(ele.questionId == props.qId)
       {
         NextRoute="/home";
+        data=userSkills[i].questionName;
+        let rmId=localStorage.getItem("rmId");
+        let getApproval={
+          "id": 0,
+          "empId": empId,
+          "managerId": rmId,
+        }
+        console.log(getApproval);
+        axios.post(`https://localhost:7074/api/Approvals/AddSubSkill`,getApproval).then((response)=>{
+              console.log(response.data);
+              console.log(getApproval);
+              axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
+        })
 
       }
       
     });
 
-    navigate(NextRoute,{ state: {setShow:true,} });
+    navigate(NextRoute,{ state: {setShow:true,data:data,} });
   };
 
   const ratingChanged = (newRating, id) => {
@@ -128,7 +147,7 @@ console.log(obj)
                                 <h4>{ele.subSkillName}</h4>
                                 
                               </div>
-                              <div className="ReactStars" ref={reactStars}>
+                              <div className="ReactStars" >
                               <ReactStars
                                   count={5}
                                   value={0}
@@ -184,7 +203,8 @@ console.log(obj)
               </Button>{" "}
             </>
           )} */}
-          <ButtonGroup className="me-2" aria-label="First group">
+          <div style={{position:"fixed"}}>
+          <ButtonGroup className="me-2"  aria-label="First group">
         <Button
           className="prevBtn"
           onClick={(e) => movePrev(e)}
@@ -196,16 +216,16 @@ console.log(obj)
         <ButtonGroup className="me-2" aria-label="First group">
         <Button
           className="nextBtn"
-          onClick={(e) => moveNext(e)}
+          onClick={(e) => Submit(e)}
           type="button"
           variant="primary"
         >
-          Next Section <ArrowRight />
+          Submit and Next <ArrowRight />
         </Button>{" "}
-        </ButtonGroup>
-        
-        {location.state &&
-        <ToastComp setShow={true}/>}
+        </ButtonGroup> 
+        </div>
+        {location.state?
+        <ToastComp key={Math.random()} setShow={location.state.setShow} data={location.state.data}/>:""}
    
       </div>
       

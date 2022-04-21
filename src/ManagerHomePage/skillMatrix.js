@@ -57,19 +57,19 @@ export default function SkillMatrix() {
     setQuesDB(filtered)
   };
 
-  const handleSubmit = () => {
-    async function quesAPI() {
+  async function handleSubmit(){
+    
       const empQues = {
         array: quesDB,
         empId: localStorage.getItem('EmpId'),
       };
-      await axios
-        .post(quesURL, empQues)
+      await axios.post(quesURL, empQues)
         .then((response) => {
+          console.log("hi")
           console.log(response);
         })
         .catch((err) => console.log(err));
-    }
+    
     // quesAPI();
     navigate("/TeamSkillDetails");
   };

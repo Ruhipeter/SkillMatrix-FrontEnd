@@ -13,11 +13,28 @@ function QuickAccess() {
   let year = date.getFullYear();
   let month = date.getMonth() + 1;
   let day = date.getDate();
-
+  const EmpId=localStorage.getItem('EmpId')
   const [time, setTime] = React.useState("");
+  const [updateDate, setUpdateDate] = React.useState([]);
   const [event, setEvent] = React.useState("");
+  const [empUpdatedOn , setEmpUpdatedOn]= React.useState()
+  const [empUpdateOnTime , setEmpUpdatedOnTime] = useState()
+
 
   const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
+  useEffect(()=>{
+    axios.get(`https://localhost:7074/api/UpdatedOn/GetUpdateTimeByEmpId?EmpId=${EmpId}`).then((response)=>{
+      setUpdateDate(response.data);
+      console.log(response.data)
+      const udate = new Date(`${response.data[0].updated_On}`);
+      setEmpUpdatedOn(`${udate.toDateString()} `)
+      let onlyTime = (`${udate.toTimeString()} `).toString()
+      setEmpUpdatedOnTime(onlyTime.slice(0,9));
+      
+    }).catch((err)=>{
+      console.log(err);
+    })
+  },[])
 
   useEffect(() => {
     axios.get(calenderURL).then((response) => {
@@ -78,7 +95,7 @@ function QuickAccess() {
           </Card.Body>
         </Card>
 
-        <Card
+        {/* <Card
           style={{
             marginTop: "20px",
             marginBottom: "20px",
@@ -91,7 +108,22 @@ function QuickAccess() {
             <Card.Title style={{ fontSize: "26px" }}> {event} </Card.Title>
             <Card.Title style={{ fontSize: "26px" }}> {today} </Card.Title>
           </Card.Body>
-        </Card>
+        </Card> */}
+         {updateDate.length==1?<Card 
+         key={Math.random()}
+          style={{
+            marginTop: "20px",
+            marginBottom: "20px",
+            backgroundColor: "#36a2b2",
+            color: "white",
+          }}
+        >
+          <Card.Body>
+            <Card.Title style={{ fontSize: "20px" }}>Your Latest Update</Card.Title>
+            <Card.Title style={{ fontSize: "26px" }}> {empUpdatedOn} </Card.Title>
+            <Card.Title style={{ fontSize: "26px" }}> {empUpdateOnTime} </Card.Title>
+          </Card.Body>
+        </Card>:''}
       </div>
     </>
   );

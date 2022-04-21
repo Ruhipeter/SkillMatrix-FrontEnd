@@ -72,19 +72,20 @@ export default function BasicDetails() {
         "designation": empDesig,
         "status": true
       }
+      console.log(empData)
       localStorage.setItem("TeamId", empTeam);
-        async function empAPI() {
-          await axios
-            .post(empDataURL, empData)
+        
+          axios.post(empDataURL, empData)
             .then((response) => {
               console.log(response);
               localStorage.setItem("EmpId", response.data.id);
             })
             .catch((err) => console.log(err));
-        }
+        
         // empAPI();
         navigate('/SkillMatrix');
   }
+  
   return (
     <>
       <TopBar />
@@ -209,7 +210,7 @@ export default function BasicDetails() {
                     </Form.Group>
                   </Row>
 
-                  {/* <Row className="mb-4">
+                  <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Col xs={6}>
                       <Form.Label>Employee Login Password </Form.Label> 
@@ -220,7 +221,7 @@ export default function BasicDetails() {
                       />
                       </Col>
                     </Form.Group>
-                  </Row> */}
+                  </Row> 
 
                   <Button type="submit" onClick={(e)=>handleSubmit(e)} className="submitBtn">
                     Submit Details

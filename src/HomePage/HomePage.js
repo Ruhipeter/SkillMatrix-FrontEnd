@@ -26,12 +26,12 @@ export default function HomePage() {
           </div>
 
           <div className="col-11 col-md-4 col-sm-11" style={{marginLeft:"20px"}}>
-              <QuickAccess/>
+              <QuickAccess key={Math.random()}/>
           </div>
           <div className="col-11 col-md-7 col-sm-11 m-sm-5 m-md-0"  >
               <Feeds />
-              {location.state &&
-        <ToastComp setShow={true}/>}
+              {location.state?
+        <ToastComp setShow={location.state.setShow} data={"All Skills"}/>:""}
           </div>
           
         </div>

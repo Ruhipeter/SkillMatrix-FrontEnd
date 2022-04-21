@@ -11,6 +11,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CallIcon from "@mui/icons-material/Call";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import { useDispatch, useSelector } from "react-redux";
 import EmployeeSkillRatings from "./EmployeeSkillRatings";
@@ -24,7 +25,7 @@ export default function EmpRatingPage() {
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
   );
-
+  const navigate = useNavigate();
   const skillsURL = "https://localhost:7074/api/SubSkills/GetAllSubSkills";
   const empId = localStorage.getItem("ApprovalEmpId");
   const empURL = `https://localhost:7074/api/Employee/GetEmployeeByEmpId?empId=${empId}`;
@@ -144,9 +145,11 @@ export default function EmpRatingPage() {
                 <Card.Body>
                   <h3 style={{ fontSize: "40px", fontWeight: "400" }}>
                     {userSkills[count].questionName}{" "}
+                    {/* {userSkills.length-(count+1)>0 &&
                     <Button className="nextBtn" type="button" variant="primary" onClick={()=>count<userSkills.length-1 && setCount(p=>p+1)}>
                       Next Section <ArrowRight />
-                    </Button>{" "}
+                    </Button>
+                    }{" "} */}
                     {count > 0 && 
                     <Button className="prevBtn2" type="button" variant="outline-primary" onClick={()=>count>0 && setCount(p=>p-1)}>
                      <ArrowLeft /> Prev Section
@@ -176,7 +179,21 @@ export default function EmpRatingPage() {
                       SkillId={userSkills[count].questionId}
                       empId={empId}
                     />
+                     {userSkills.length-(count+1)==0 && 
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>{
+                      axios.delete(`https://localhost:7074/api/Approvals/DeleteApprovalsByEmpId?empId=${empId}`)
+                      navigate('/ApprovalPage')}}>
+                    Send Response
+                   </Button>
+                    }
                   </div>
+                  <h3>
+                  {userSkills.length-(count+1)>0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>count<userSkills.length-1 && setCount(p=>p+1)}>
+                      Next Section <ArrowRight />
+                    </Button>
+                  }
+                  </h3>
                 </Card.Body>
               </Card>
               }
