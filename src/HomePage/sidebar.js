@@ -44,7 +44,6 @@ function Sidebar() {
               </li>
             </NavLink>
         }
-<<<<<<< HEAD
         <NavLink to="/timeline" as="li" >
           <li>
             <img
@@ -56,7 +55,6 @@ function Sidebar() {
         </NavLink>
 
      
-=======
         {userTeamSkills[0] && <NavLink to={`/TeamSkills/${userTeamSkills[0].teamSkillName}`} 
                                       state={{id: userTeamSkills[0].teamSkillId,sname:userTeamSkills[0].teamSkillName}} 
                                       as="li" >
@@ -69,7 +67,6 @@ function Sidebar() {
           </li>
         </NavLink>}
       
->>>>>>> cc13055e0fbbc1a9c5e882c43f060d912418d87a
       </ul>
       {/* <ul>
         <NavLink to="/home" as="li" >
