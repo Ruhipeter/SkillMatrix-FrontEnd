@@ -9,3 +9,11 @@
     color: grey;
     font-weight: 400;
 }
+.inputBox{
+    padding: 15px !important;
+    display: none;
+}
+.setInputBox{
+    padding: 15px !important;
+    border-color: red !important; 
+}

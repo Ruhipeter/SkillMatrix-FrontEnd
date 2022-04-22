@@ -90,7 +90,7 @@ function SubSkills(props) {
           "managerId": rmId,
         }
         console.log(getApproval);
-        axios.post(`https://localhost:7074/api/Approvals/AddSubSkill`,getApproval).then((response)=>{
+        axios.post(`https://localhost:7074/api/Approvals/AddApprovals`,getApproval).then((response)=>{
               console.log(response.data);
               console.log(getApproval);
               axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
@@ -209,7 +209,7 @@ console.log(obj)
           className="prevBtn"
           onClick={(e) => movePrev(e)}
           type="button"
-          variant="outline-dark"
+          variant="outline-primary"
         ><ArrowLeft />Previous Section</Button>      
 
         </ButtonGroup>

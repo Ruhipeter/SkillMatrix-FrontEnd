@@ -166,7 +166,7 @@ function SubSkillsWithRatings(props) {
           className="prevBtn"
           onClick={(e) => movePrev(e)}
           type="button"
-          variant="outline-dark"
+          variant="outline-primary"
         ><ArrowLeft />Previous Section</Button>      
 
         </ButtonGroup>{' '}

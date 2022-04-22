@@ -1,22 +1,36 @@
 import React, { useState } from "react";
-import { Button, FormControl, InputGroup } from "react-bootstrap";
+import { Button, FormControl, InputGroup, ToastContainer } from "react-bootstrap";
 import bgImg from "../images/vinoveBg.jpg";
 import logo from "../images/logo.jpg";
 import { Password } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
+import LoginPage from './login';
+import homeCss from '../css/home.css'
+import ToastComp from "../HomePage/ToastComp";
+import { Toast } from "bootstrap";
 
 
-function LoginPage({loggedIn,setLoggedIn}) {
+
+function ForgotPasswordPage({loggedIn,setLoggedIn}) {
   let navigate = useNavigate(); 
   
 
   const [username , setUsername] = useState("")
   const [password,setPassword] = useState("")
+  const [confirmPassword,setConfirmPassword] = useState("")
+  const [inputStyle, setInputStyle] = useState("inputBox")
+  const [show, setShow] = useState(true);
   
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(password !== confirmPassword){
+        setInputStyle('setInputBox')
+        return (
+            alert("Password and Confirm Password Should be same")
+        )
+    }
     let formData={
       "username":username,
       "password":password
@@ -24,22 +38,13 @@ function LoginPage({loggedIn,setLoggedIn}) {
    
     e.preventDefault()
     axios
-    .post("https://localhost:7074/api/User/Login", formData)
+    .put("https://localhost:7074/api/User/ForgotPassword", formData)
     .then(res => {
       const data = res.data;
       console.log(data)
-      const userId = res.data.data[0].userId;
-      const empId=res.data.data[0].empId;
-      
       if(data.responseCode == 200){
-      console.log("Logged in Successfully")
-      localStorage.setItem("LoggedIn", true);
-      localStorage.setItem("User", res.data.data[0].username);
-      localStorage.setItem("UserId",userId);
-      localStorage.setItem("EmpId",empId);
-      // let path = `/home`; 
-      {data.data[0].userRole===0?navigate('/home'):navigate('/ManagerHomePage');}
-      // navigate(path);
+      console.log("Password Updated Successfully")
+      navigate('/home');
     }
     })
     .catch(err => console.log(err));
@@ -64,8 +69,8 @@ function LoginPage({loggedIn,setLoggedIn}) {
             />
             <form onSubmit={handleSubmit}>
               <div style={{ marginTop: "10%", padding: "5%" }}>
-                <h3 className="mb-1">Login</h3>
-                <p className="mb-4">Please enter your Username and Password</p>
+                <h3 className="mb-1">Forgot Password</h3>
+                <p className="mb-4">Please Update your Password</p>
                 <InputGroup size="lg" className="mb-3">
                   <FormControl
                     aria-label="Large" onChange={e => setUsername(e.target.value)} 
@@ -75,21 +80,28 @@ function LoginPage({loggedIn,setLoggedIn}) {
                   />
                 </InputGroup>
                 <InputGroup size="lg" className="mb-3">
-                  <FormControl type="password"
+                  <FormControl type="password" 
                     aria-label="Large" onChange={e => setPassword(e.target.value)}
                     placeholder="Password"
-                    style={{ padding: "15px" }}
+                    className={inputStyle}
+                    aria-describedby="inputGroup-sizing-sm"
+                  />
+                </InputGroup>
+                <InputGroup size="lg" className="mb-3">
+                  <FormControl type="password"
+                    aria-label="Large" onChange={e => setConfirmPassword(e.target.value)}
+                    placeholder="Confirm Password"
+                    className={inputStyle}
                     aria-describedby="inputGroup-sizing-sm"
                   />
                 </InputGroup>
                 <Button onSubmit={ (e) => {handleSubmit(e)}}
-                  style={{ width: "150px", fontSize: "20px" }}
+                  style={{ width: "220px", fontSize: "20px" , float:'left' }}
                   variant="primary"
                   type="submit"
                 >
-                  Login
+                  Update Password
                 </Button>
-                <a href="/forgotPassword"><h6 className="mt-3" style={{color:'black'}}>Forgot Password ?</h6> </a>
               </div>
             </form>
           </div>
@@ -99,4 +111,4 @@ function LoginPage({loggedIn,setLoggedIn}) {
   );
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;
