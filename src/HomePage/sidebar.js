@@ -3,17 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import indexCss from '../css/index.css'
 import { listUserSkills } from "../Redux/actions/userSkillsActions";
+import { listUserTeamSkills } from "../Redux/actions/userTeamSkillsAction";
 
 
 function Sidebar() {
   const dispatch=useDispatch();
   const userSkills = useSelector(state =>state.rootReducer.userSkill.userSkills);
-  // const route='/'+ userSkills[0].questionName+'/'+userSkills[0].questionId;
+  const userTeamSkills =useSelector(state => state.rootReducer.userTeamSkill.userTeamSkills);
 
   useEffect(()=>{
     const empId=localStorage.getItem("EmpId");
-    dispatch(listUserSkills(empId));
+    const teamId=localStorage.getItem("teamId");
+    dispatch(listUserSkills(empId))
+    dispatch(listUserTeamSkills(empId,teamId));
   },[])
+ console.log(userSkills)
+ if(userTeamSkills.length>0)
+{ console.log(userTeamSkills[0].teamSkillName)}
   return (
     <>
       <ul>
@@ -28,16 +34,17 @@ function Sidebar() {
         </NavLink>
       
            { userSkills[0] && 
-           <NavLink to={`/${userSkills[0].questionName}/${userSkills[0].questionId}`} as="li" >
+           <NavLink to={`/Skills/${userSkills[0].questionName}/${userSkills[0].questionId}`} as="li" >
               <li>
                 <img
                   style={{ height: "30px", width: "30px" }}
                   src={userSkills[0].questionLogo}
                 />
-                <h6>Skills</h6>
+                <h6>My Skills</h6>
               </li>
             </NavLink>
         }
+<<<<<<< HEAD
         <NavLink to="/timeline" as="li" >
           <li>
             <img
@@ -49,6 +56,20 @@ function Sidebar() {
         </NavLink>
 
      
+=======
+        {userTeamSkills[0] && <NavLink to={`/TeamSkills/${userTeamSkills[0].teamSkillName}`} 
+                                      state={{id: userTeamSkills[0].teamSkillId,sname:userTeamSkills[0].teamSkillName}} 
+                                      as="li" >
+          <li>
+            <img
+              style={{ height: "30px", width: "30px" }}
+              src="https://img.icons8.com/fluency-systems-filled/148/ffffff/github.png"
+            />
+            <h6>My Team Skills</h6>
+          </li>
+        </NavLink>}
+      
+>>>>>>> cc13055e0fbbc1a9c5e882c43f060d912418d87a
       </ul>
       {/* <ul>
         <NavLink to="/home" as="li" >

@@ -18,6 +18,9 @@ function SubSkillsWithRatings(props) {
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
   );
+  const userTeamSkills = useSelector(
+    (state) => state.rootReducer.userTeamSkill.userTeamSkills
+  );
   const obj = {
     subskillRatingArr: [],
     empId: empId,
@@ -45,7 +48,7 @@ function SubSkillsWithRatings(props) {
     let NextRoute = "";
     userSkills.map((ele, i) => {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
-        NextRoute = `/${userSkills[i + 1].questionName}/${
+        NextRoute = `/Skills/${userSkills[i + 1].questionName}/${
           userSkills[i + 1].questionId
         }`;}
       if(NextRoute==="")

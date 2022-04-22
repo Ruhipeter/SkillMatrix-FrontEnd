@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Skills from './SkillPageUser/Skills';
 import ApprovalPage from './ManagerHomePage/ApprovalPage';
 import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
+import TeamSkills from './TeamSkills/TeamSkills';
 import ForgotPasswordPage from './login/forgotPassword'
 import TimelinePage from './HomePage/timeline';
 
@@ -49,13 +50,23 @@ function App() {
         />
       </Routes>
       <Routes>
-        <Route path="/:skill/:qid"
+        <Route path="/Skills/:skill/:qid"
           element={
           <RequireAuth redirectTo="/">
           <Skills />
           </RequireAuth>
 
           } />
+      </Routes>
+      <Routes>
+        <Route
+          path="/TeamSkills/:teamskill"
+          element={
+            <RequireAuth redirectTo="/">
+              <TeamSkills/>
+            </RequireAuth>
+          }
+        />
       </Routes>
     
       <Routes>
