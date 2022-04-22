@@ -36,6 +36,7 @@ function Feeds() {
     if (userInfo) {
       setUserinformation(userInfo)
       localStorage.setItem("rmId", userInfo.rmId)
+      localStorage.setItem("teamId", userInfo.teamId)
     }
   }, [userInfo])
   const fillForm = () => {

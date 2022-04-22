@@ -28,8 +28,9 @@ function LoginPage({loggedIn,setLoggedIn}) {
     .then(res => {
       const data = res.data;
       console.log(data)
-      const userId = res.data.data.userId;
-      const empId=res.data.data.empId;
+      const userId = res.data.data[0].userId;
+      const empId=res.data.data[0].empId;
+      console.log(res.data.data[0].userId,res.data.data[0].empId)
       if(data.responseCode == 200){
       console.log("Logged in Successfully")
       localStorage.setItem("LoggedIn", true);
@@ -37,7 +38,7 @@ function LoginPage({loggedIn,setLoggedIn}) {
       localStorage.setItem("UserId",userId);
       localStorage.setItem("EmpId",empId);
       // let path = `/home`; 
-      {data.data.userRole===0?navigate('/home'):navigate('/ManagerHomePage');}
+      {data.data[0].userRole===1?navigate('/ManagerHomePage'):navigate('/home');}
       // navigate(path);
     }
     })

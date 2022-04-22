@@ -74,7 +74,7 @@ function SubSkills(props) {
     let data="";
     userSkills.map((ele, i) => {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
-        NextRoute = `/${userSkills[i + 1].questionName}/${
+        NextRoute = `/Skills/${userSkills[i + 1].questionName}/${
           userSkills[i + 1].questionId}`;
         data=userSkills[i].questionName;
         

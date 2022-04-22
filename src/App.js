@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import Skills from './SkillPageUser/Skills';
 import ApprovalPage from './ManagerHomePage/ApprovalPage';
 import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
+import TeamSkills from './TeamSkills/TeamSkills';
 
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
@@ -44,13 +45,23 @@ function App() {
         />
       </Routes>
       <Routes>
-        <Route path="/:skill/:qid"
+        <Route path="/Skills/:skill/:qid"
           element={
           <RequireAuth redirectTo="/">
           <Skills />
           </RequireAuth>
 
           } />
+      </Routes>
+      <Routes>
+        <Route
+          path="/TeamSkills/:teamskill"
+          element={
+            <RequireAuth redirectTo="/">
+              <TeamSkills/>
+            </RequireAuth>
+          }
+        />
       </Routes>
     
       <Routes>

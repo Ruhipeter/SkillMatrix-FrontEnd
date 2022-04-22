@@ -7,7 +7,7 @@ import indexCss from "../css/index.css";
 import Card from "react-bootstrap/Card";
 import inboxImg from "../images/inboxImg.svg";
 
-function QuickAccess() {
+function QuickAccess(props) {
   const date = new Date();
   let today = date.toDateString();
   let year = date.getFullYear();
@@ -15,27 +15,16 @@ function QuickAccess() {
   let day = date.getDate();
   const EmpId=localStorage.getItem('EmpId')
   const [time, setTime] = React.useState("");
-  const [updateDate, setUpdateDate] = React.useState([]);
+  const [updateDate, setUpdateDate] = React.useState(props.updateDate);
   const [event, setEvent] = React.useState("");
-  const [empUpdatedOn , setEmpUpdatedOn]= React.useState()
-  const [empUpdateOnTime , setEmpUpdatedOnTime] = useState()
+  const [empUpdatedOn , setEmpUpdatedOn]= React.useState(props.empUpdatedOn)
+  const [empUpdateOnTime , setEmpUpdatedOnTime] = useState(props.empUpdateOnTime)
 
 
   const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
   useEffect(()=>{
-    axios.get(`https://localhost:7074/api/UpdatedOn/GetUpdateTimeByEmpId?EmpId=${EmpId}`).then((response)=>{
-      setUpdateDate(response.data);
-      console.log(response.data)
-      const udate = new Date(`${response.data[0].updated_On}`);
-      setEmpUpdatedOn(`${udate.toDateString()} `)
-      let onlyTime = (`${udate.toTimeString()} `).toString()
-      setEmpUpdatedOnTime(onlyTime.slice(0,9));
-      
-    }).catch((err)=>{
-      console.log(err);
-    })
-  },[])
-
+  
+  },[updateDate])
   useEffect(() => {
     axios.get(calenderURL).then((response) => {
       // console.log(response.data.response);
@@ -59,7 +48,7 @@ function QuickAccess() {
 
   return (
     <>
-      <div className="container" style={{ padding: "20px" }}>
+      <div className="container" style={{ padding: "20px" }} key={Math.random()}>
         <h5 style={{fontWeight:'400'}}>Quick Access</h5>
         <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
           <Card.Body>
@@ -109,7 +98,7 @@ function QuickAccess() {
             <Card.Title style={{ fontSize: "26px" }}> {today} </Card.Title>
           </Card.Body>
         </Card> */}
-         {updateDate.length==1?<Card 
+         {updateDate.length>=1?<Card 
          key={Math.random()}
           style={{
             marginTop: "20px",
