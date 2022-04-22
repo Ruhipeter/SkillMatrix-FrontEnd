@@ -22,10 +22,12 @@
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
+    "react-loader-spinner": "^6.0.0-0",
     "react-rating-stars-component": "^2.2.0",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "react-spinners": "^0.11.0",
     "react-typescript-checkmark": "^1.2.2"
   },
   "scripts": {

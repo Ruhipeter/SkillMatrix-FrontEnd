@@ -1,6 +1,12 @@
 td{
-font-size: 23px !important;
-font-weight: 500;
+font-size: 18px !important;
+font-weight: 400;
+}
+th{
+    font-weight: 600 !important;
+}
+.table>:not(:first-child) {
+    border-top: 1px solid currentColor !important;
 }
 
 .rowClass{

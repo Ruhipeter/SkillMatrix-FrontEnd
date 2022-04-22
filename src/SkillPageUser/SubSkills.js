@@ -20,6 +20,8 @@ function SubSkills(props) {
     subskillRatingArr: [],
     empId: empId,
     skillId: props.qId,
+    submittedOn:new Date(),
+    assessmentMonth:'string'
   };
 
   useEffect(() => {

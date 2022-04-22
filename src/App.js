@@ -13,6 +13,7 @@ import Skills from './SkillPageUser/Skills';
 import ApprovalPage from './ManagerHomePage/ApprovalPage';
 import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
 import ForgotPasswordPage from './login/forgotPassword'
+import TimelinePage from './HomePage/timeline';
 
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
@@ -115,6 +116,17 @@ function App() {
           element={
             <RequireAuth redirectTo="/">
               <EmpRatingPage/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+
+      <Routes>
+        <Route
+          path="/Timeline"
+          element={
+            <RequireAuth redirectTo="/">
+              <TimelinePage/>
             </RequireAuth>
           }
         />

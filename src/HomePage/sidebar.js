@@ -14,7 +14,6 @@ function Sidebar() {
     const empId=localStorage.getItem("EmpId");
     dispatch(listUserSkills(empId));
   },[])
- console.log(userSkills[0])
   return (
     <>
       <ul>
@@ -39,6 +38,15 @@ function Sidebar() {
               </li>
             </NavLink>
         }
+        <NavLink to="/timeline" as="li" >
+          <li>
+            <img
+              style={{ height: "30px", width: "30px" }}
+              src="https://img.icons8.com/wired/164/ffffff/planner.png"
+            />
+            <h6>Skills Timeline</h6>
+          </li>
+        </NavLink>
 
      
       </ul>

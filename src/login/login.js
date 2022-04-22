@@ -6,11 +6,18 @@ import { Password } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
+import { css } from "@emotion/react";
+import ClipLoader from "react-spinners/ClipLoader"
 
-
+const override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: red;
+`;
 function LoginPage({loggedIn,setLoggedIn}) {
   let navigate = useNavigate(); 
-  
+  let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState("#ffffff");
 
   const [username , setUsername] = useState("")
   const [password,setPassword] = useState("")
@@ -21,6 +28,7 @@ function LoginPage({loggedIn,setLoggedIn}) {
       "username":username,
       "password":password
     }
+    setLoading(!loading)
    
     e.preventDefault()
     axios
@@ -28,17 +36,17 @@ function LoginPage({loggedIn,setLoggedIn}) {
     .then(res => {
       const data = res.data;
       console.log(data)
-      const userId = res.data.data[0].userId;
-      const empId=res.data.data[0].empId;
+      const userId = res.data.data.userId;
+      const empId=res.data.data.empId;
       
       if(data.responseCode == 200){
       console.log("Logged in Successfully")
       localStorage.setItem("LoggedIn", true);
-      localStorage.setItem("User", res.data.data[0].username);
+      localStorage.setItem("User", res.data.data.username);
       localStorage.setItem("UserId",userId);
       localStorage.setItem("EmpId",empId);
       // let path = `/home`; 
-      {data.data[0].userRole===0?navigate('/home'):navigate('/ManagerHomePage');}
+      {data.data.userRole===0?navigate('/home'):navigate('/ManagerHomePage');}
       // navigate(path);
     }
     })
@@ -92,6 +100,7 @@ function LoginPage({loggedIn,setLoggedIn}) {
                 <a href="/forgotPassword"><h6 className="mt-3" style={{color:'black'}}>Forgot Password ?</h6> </a>
               </div>
             </form>
+            <ClipLoader color={color} loading={loading} css={override} size={150} />
           </div>
         </div>
       </div>

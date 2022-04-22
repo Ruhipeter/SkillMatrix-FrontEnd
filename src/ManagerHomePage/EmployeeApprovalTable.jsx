@@ -110,7 +110,7 @@ export default function ApprovalDataTable() {
       });
   }, []);
   return (
-    <div style={{ height: 500, width: "100%" }}>
+    <div style={{ height: 1000, width: "100%" }}>
       <DataGrid
         rows={rows}
         rowHeight={120}
