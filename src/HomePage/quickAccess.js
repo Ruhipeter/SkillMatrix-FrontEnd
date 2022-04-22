@@ -23,7 +23,6 @@ function QuickAccess(props) {
 
   const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
   useEffect(()=>{
-<<<<<<< HEAD
     axios.get(`https://localhost:7074/api/UpdatedOn/GetLatestUpdateTimeByEmpId?EmpId=${EmpId}`).then((response)=>{
       console.log(response.data.data)
       setEmpUpdatedOn(response.data.data)
@@ -32,10 +31,6 @@ function QuickAccess(props) {
     })
   },[])
 
-=======
-  
-  },[updateDate])
->>>>>>> cc13055e0fbbc1a9c5e882c43f060d912418d87a
   useEffect(() => {
     axios.get(calenderURL).then((response) => {
       // console.log(response.data.response);
