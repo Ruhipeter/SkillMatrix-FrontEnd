@@ -61,8 +61,8 @@ export default function TeamSkillDetails() {
     async function quesAPI() {
       const empQues = {
         array: quesDB,
-        empId: 5,
-        teamId:1
+        empId: localStorage.getItem('NewEmpId'),
+        teamId:localStorage.getItem('TeamId')
       };
       await axios
         .post(quesURL, empQues)

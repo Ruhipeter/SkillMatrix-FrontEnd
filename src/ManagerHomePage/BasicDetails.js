@@ -64,7 +64,10 @@ export default function BasicDetails() {
       e.stopPropagation();
     }
     setValidated(true);
-    
+
+    // empAPI();
+    if(validated == true){
+          
     e.preventDefault();
     const empData = {
       id: 0,
@@ -87,12 +90,9 @@ export default function BasicDetails() {
       .post(empDataURL, empData)
       .then((response) => {
         console.log(response);
-        localStorage.setItem("EmpId", response.data.id);
+        localStorage.setItem("NewEmpId", response.data.id);
       })
       .catch((err) => console.log(err));
-
-    // empAPI();
-    if(validated == true){
     navigate("/SkillMatrix");
     }
   };

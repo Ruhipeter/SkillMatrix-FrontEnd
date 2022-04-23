@@ -22,12 +22,10 @@ function TopBar() {
     async function empAPI() {
       await axios.get(empURL).then((response) => {
         setEmpDB(response.data);
-        console.log(response.data);
       });
     }
     empAPI();
   }, []);
-  console.log(empDB);
   const logout = () => {
     localStorage.clear();
     navigate("/");
