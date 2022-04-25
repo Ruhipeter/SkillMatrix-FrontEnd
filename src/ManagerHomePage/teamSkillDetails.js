@@ -30,9 +30,11 @@ import axios from "axios";
 
 export default function TeamSkillDetails() {
   let navigate = useNavigate();
+  const teamId = localStorage.getItem("TeamId");
 
-  const skillsURL = `https://localhost:7074/api/TeamSkills/GetAllTeamSkills`;
-  const quesURL = "https://localhost:7074/api/EmployeeTeamQuestions/PostEmployeeTeamQuestions";
+  const skillsURL = `https://localhost:7074/api/TeamSkills/GetTeamSkillsByTeamId?teamId=${teamId}`;
+  const quesURL =
+    "https://localhost:7074/api/EmployeeTeamQuestions/PostEmployeeTeamQuestions";
   const [skillDB, setSkillsDB] = useState([]);
   const [quesDB, setQuesDB] = useState([]);
 
@@ -53,16 +55,16 @@ export default function TeamSkillDetails() {
 
   const removeQues = (e, skillId) => {
     let obj = [...quesDB];
-    const filtered = obj.filter((item)=>item != skillId)
-    setQuesDB(filtered)
+    const filtered = obj.filter((item) => item != skillId);
+    setQuesDB(filtered);
   };
 
   const handleSubmit = () => {
     async function quesAPI() {
       const empQues = {
         array: quesDB,
-        empId: localStorage.getItem('NewEmpId'),
-        teamId:localStorage.getItem('TeamId')
+        empId: localStorage.getItem("NewEmpId"),
+        teamId: localStorage.getItem("TeamId"),
       };
       await axios
         .post(quesURL, empQues)
@@ -71,7 +73,7 @@ export default function TeamSkillDetails() {
         })
         .catch((err) => console.log(err));
     }
-    // quesAPI();
+    quesAPI();
     navigate("/ManagerHomePage");
   };
   return (
@@ -87,7 +89,10 @@ export default function TeamSkillDetails() {
             className="col-11 col-md-7 col-sm-11"
             style={{ marginLeft: "20px" }}
           >
-            <h4 style={{ marginTop: "20px" }}>MS .NET Skills</h4>
+            <h4 style={{ marginTop: "20px" }}>
+              {skillDB.length > 0 && skillDB[0].teamName} &nbsp;
+              Skills
+            </h4>
             <Card
               style={{
                 marginTop: "30px",
@@ -216,7 +221,6 @@ export default function TeamSkillDetails() {
                   </Card.Title>
                 </Card.Body>
               </Card>
-
             </div>
           </div>
         </div>

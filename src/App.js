@@ -15,6 +15,7 @@ import EmpRatingPage from './ManagerHomePage/EmployeeRatings'
 import TeamSkills from './TeamSkills/TeamSkills';
 import ForgotPasswordPage from './login/forgotPassword'
 import TimelinePage from './HomePage/timeline';
+import ReviewDetails from './ManagerHomePage/ReviewDetails';
 
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
@@ -81,7 +82,7 @@ function App() {
       </Routes>
       <Routes>
         <Route
-          path="/BasicDetails"
+          path="/BasicDetails" 
           element={
             <RequireAuth redirectTo="/">
               <BasicDetails/>
@@ -138,6 +139,17 @@ function App() {
           element={
             <RequireAuth redirectTo="/">
               <TimelinePage/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+
+      <Routes>
+        <Route
+          path="/ReviewDetails"
+          element={
+            <RequireAuth redirectTo="/">
+              <ReviewDetails/>
             </RequireAuth>
           }
         />
