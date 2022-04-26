@@ -27,9 +27,7 @@ function LoginPage({loggedIn,setLoggedIn}) {
     let formData={
       "username":username,
       "password":password
-    }
-    setLoading(!loading)
-   
+    }   
     e.preventDefault()
     axios
     .post("https://localhost:7074/api/User/Login", formData)
@@ -100,7 +98,6 @@ function LoginPage({loggedIn,setLoggedIn}) {
                 <a href="/forgotPassword"><h6 className="mt-3" style={{color:'black'}}>Forgot Password ?</h6> </a>
               </div>
             </form>
-            <ClipLoader color={color} loading={loading} css={override} size={150} />
           </div>
         </div>
       </div>

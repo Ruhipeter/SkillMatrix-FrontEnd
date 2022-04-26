@@ -64,36 +64,36 @@ export default function BasicDetails() {
       e.stopPropagation();
     }
     setValidated(true);
-    
-    e.preventDefault();
-    const empData = {
-      id: 0,
-      name: empName,
-      email: empEmail,
-      password: "string",
-      employeeCode: empCode,
-      reportingManager: empManager,
-      location: empLocation,
-      department: empDept,
-      team: empTeam,
-      band: empBand,
-      designation: empDesig,
-      status: true,
-    };
-    console.log(empData);
-    localStorage.setItem("TeamId", empTeam);
-
-    axios
-      .post(empDataURL, empData)
-      .then((response) => {
-        console.log(response);
-        localStorage.setItem("EmpId", response.data.id);
-      })
-      .catch((err) => console.log(err));
 
     // empAPI();
-    if(validated == true){
-    navigate("/SkillMatrix");
+    if (validated == true) {
+      e.preventDefault();
+      const empData = {
+        id: 0,
+        name: empName,
+        email: empEmail,
+        password: "string",
+        employeeCode: empCode,
+        reportingManager: empManager,
+        location: empLocation,
+        department: empDept,
+        team: empTeam,
+        band: empBand,
+        designation: empDesig,
+        status: true,
+      };
+
+      axios
+        .post(empDataURL, empData)
+        .then((response) => {
+          console.log(response);
+          localStorage.setItem("NewEmpId", response.data.id);
+          localStorage.setItem("TeamId", response.data.team);
+          const timer = setTimeout(() => {
+            navigate("/SkillMatrix");
+          }, 2000);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
@@ -119,7 +119,11 @@ export default function BasicDetails() {
               }}
             >
               <Card.Body>
-                <Form noValidate validated={validated} onSubmit={handleSubmitBtn}>
+                <Form
+                  noValidate
+                  validated={validated}
+                  onSubmit={handleSubmitBtn}
+                >
                   <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label style={{ display: "flex" }}>
@@ -137,7 +141,8 @@ export default function BasicDetails() {
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Name" required
+                        placeholder="Enter Name"
+                        required
                         onChange={(e) => setEmpName(e.target.value)}
                       />
                     </Form.Group>
@@ -158,7 +163,8 @@ export default function BasicDetails() {
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Email" required
+                        placeholder="Enter Email"
+                        required
                         onChange={(e) => setEmpMail(e.target.value)}
                       />
                     </Form.Group>
@@ -181,7 +187,8 @@ export default function BasicDetails() {
                       <Form.Control
                         size="lg"
                         type="text"
-                        placeholder="Enter Employee Code" required
+                        placeholder="Enter Employee Code"
+                        required
                         onChange={(e) => setEmpCode(e.target.value)}
                       />
                     </Form.Group>
@@ -202,7 +209,7 @@ export default function BasicDetails() {
                     <Form.Control
                       size="lg"
                       type="text"
-                      placeholder="Enter Employee Designation" 
+                      placeholder="Enter Employee Designation"
                       onChange={(e) => setEmpDesig(e.target.value)}
                     />
                   </Form.Group>
@@ -262,7 +269,8 @@ export default function BasicDetails() {
                       </Form.Label>
                       <Form.Select
                         size="lg"
-                        defaultValue="Select Employee Team" required
+                        defaultValue="Select Employee Team"
+                        required
                         onChange={(e) => setEmpTeam(e.target.value)}
                       >
                         <option>Select Team </option>
@@ -278,7 +286,8 @@ export default function BasicDetails() {
                       <Form.Label>Location</Form.Label>
                       <Form.Select
                         size="lg"
-                        defaultValue="Select Employee Team" required
+                        defaultValue="Select Employee Team"
+                        required
                         onChange={(e) => setEmpLocation(e.target.value)}
                       >
                         <option>Select Employee Location</option>

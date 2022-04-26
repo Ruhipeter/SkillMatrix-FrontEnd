@@ -61,7 +61,7 @@ export default function SkillMatrix() {
     
       const empQues = {
         array: quesDB,
-        empId: localStorage.getItem('EmpId'),
+        empId: localStorage.getItem('NewEmpId'),
       };
       console.log(empQues)
       await axios.post(quesURL, empQues)
@@ -71,7 +71,6 @@ export default function SkillMatrix() {
         })
         .catch((err) => console.log(err));
     
-    // quesAPI();
     navigate("/TeamSkillDetails");
   };
   return (
