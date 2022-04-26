@@ -70,11 +70,11 @@ export default function TeamSkillDetails() {
         .post(quesURL, empQues)
         .then((response) => {
           console.log(response);
+          navigate("/ReviewDetails");
         })
         .catch((err) => console.log(err));
     }
     quesAPI();
-    navigate("/ManagerHomePage");
   };
   return (
     <>
