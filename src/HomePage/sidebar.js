@@ -44,15 +44,7 @@ function Sidebar() {
               </li>
             </NavLink>
         }
-        <NavLink to="/timeline" as="li" >
-          <li>
-            <img
-              style={{ height: "30px", width: "30px" }}
-              src="https://img.icons8.com/wired/164/ffffff/planner.png"
-            />
-            <h6>Skills Timeline</h6>
-          </li>
-        </NavLink>
+        
 
      
         {userTeamSkills[0] && <NavLink to={`/TeamSkills/${userTeamSkills[0].teamSkillName}`} 
@@ -66,6 +58,16 @@ function Sidebar() {
             <h6>My Team Skills</h6>
           </li>
         </NavLink>}
+        
+        <NavLink to="/timeline" as="li" >
+          <li>
+            <img
+              style={{ height: "30px", width: "30px" }}
+              src="https://img.icons8.com/wired/164/ffffff/planner.png"
+            />
+            <h6>Skills Timeline</h6>
+          </li>
+        </NavLink>
       
       </ul>
       {/* <ul>

@@ -40,8 +40,7 @@ function Feeds() {
     }
   }, [userInfo])
   const fillForm = () => {
-    console.log("hello")
-    navigate(`/${userSkills[0].questionName}/${userSkills[0].questionId}`)
+    navigate(`/Skills/${userSkills[0].questionName}/${userSkills[0].questionId}`)
   }
   console.log(userInformation)
   return (

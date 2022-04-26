@@ -16,6 +16,9 @@ function SubSkills(props) {
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
   );
+  const userTeamSkills = useSelector(
+        (state) => state.rootReducer.userTeamSkill.userTeamSkills
+      );
   const obj = {
     subskillRatingArr: [],
     empId: empId,
@@ -71,6 +74,31 @@ function SubSkills(props) {
 
     navigate(NextRoute);
   };
+  const moveNext = (e) => {
+    let NextRoute = "";
+    let id=0;
+    let sname=""
+    userSkills.map((ele, i) => {
+      if (ele.questionId == props.qId && userSkills[i + 1]) {
+        NextRoute = `/Skills/${userSkills[i + 1].questionName}/${
+          userSkills[i + 1].questionId
+        }`;}
+      else if(ele.questionId == props.qId)
+      {
+        NextRoute=`/TeamSkills/${userTeamSkills[0].teamSkillName}`;
+        id=userTeamSkills[0].teamSkillId;
+        sname=userTeamSkills[0].teamSkillName
+      }
+      
+    });
+
+    navigate(NextRoute,{state:{id: id,sname:sname,}});
+        
+        
+      }
+      
+    
+  
   const moveNextwithSubmit = (e) => {
     let NextRoute = "";
     let data="";
@@ -218,7 +246,7 @@ console.log(obj)
         <ButtonGroup className="me-2" aria-label="First group">
         <Button
           className="nextBtn"
-          onClick={(e) => Submit(e)}
+          onClick={(e) => moveNext(e)}
           type="button"
           variant="primary"
         >
