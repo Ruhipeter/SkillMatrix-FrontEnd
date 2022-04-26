@@ -43,6 +43,18 @@ function TeamSubSkills(props) {
       }
       else if (ele.teamSkillId == props.qId) {
         NextRoute = "/home";
+        let rmId = localStorage.getItem("rmId");
+        let getApproval = {
+          "id": 0,
+          "empId": empId,
+          "managerId": rmId,
+        }
+        console.log(getApproval);
+        axios.post(`https://localhost:7074/api/Approvals/AddApprovals`, getApproval).then((response) => {
+          console.log(response.data);
+          console.log(getApproval);
+          axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
+        })
 
       }
 
@@ -53,11 +65,12 @@ function TeamSubSkills(props) {
 
 
   const Submit = (e) => {
-    axios.post(`https://localhost:7074/api/TeamSubSkillsRatings/PostEmpTeamSubSkillRatings`,ratings).then((res)=>{
-            console.log(res.data)
-    }).catch((err)=>{
+    axios.post(`https://localhost:7074/api/TeamSubSkillsRatings/PostEmpTeamSubSkillRatings`, ratings).then((res) => {
+      console.log(res.data)
+    }).catch((err) => {
       console.log(err);
     })
+
     moveNext();
   }
 
@@ -167,7 +180,7 @@ function TeamSubSkills(props) {
               className="nextBtn"
               type="button"
               variant="primary"
-              onClick={moveNext}
+              onClick={(e) => Submit(e)}
             >
               Submit and Next <ArrowRight />
             </Button>{" "}

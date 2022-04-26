@@ -91,7 +91,7 @@ export default function BasicDetails() {
           localStorage.setItem("TeamId", response.data.team);
           const timer = setTimeout(() => {
             navigate("/SkillMatrix");
-          }, 2000);
+          }, 100);
         })
         .catch((err) => console.log(err));
     }
