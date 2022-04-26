@@ -16,22 +16,30 @@ import { listUserSkills } from "../Redux/actions/userSkillsActions";
 import { useDispatch, useSelector } from "react-redux";
 import EmployeeSkillRatings from "./EmployeeSkillRatings";
 import { ArrowLeft, ArrowRight } from "@mui/icons-material";
+import { listUserTeamSkills } from "../Redux/actions/userTeamSkillsAction";
+import EmployeeTeamSkillRating from "./EmployeeTeamSkillRating";
 
 export default function EmpRatingPage() {
   const [skillsDB, setSkillsDB] = useState([]);
   const [count, setCount] = useState(0);
+  const [tcount, setTCount] = useState(0);
   const [empDB, setEmpDB] = useState([]);
   const dispatch = useDispatch();
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
   );
+  const userTeamSkills = useSelector(
+    (state) => state.rootReducer.userTeamSkill.userTeamSkills
+  );
   const navigate = useNavigate();
   const skillsURL = "https://localhost:7074/api/SubSkills/GetAllSubSkills";
   const empId = localStorage.getItem("ApprovalEmpId");
   const empURL = `https://localhost:7074/api/Employee/GetEmployeeByEmpId?empId=${empId}`;
+  const teamId=localStorage.getItem("ApprovalTeamId");
 
   useEffect(() => {
     dispatch(listUserSkills(empId));
+    dispatch(listUserTeamSkills(empId,teamId));
   }, []);
   useEffect(() => {
     async function empAPI() {
@@ -41,7 +49,7 @@ export default function EmpRatingPage() {
     }
     empAPI();
   }, []);
-
+console.log(count)
   return (
     <>
       <TopBar />
@@ -141,7 +149,7 @@ export default function EmpRatingPage() {
               ))}
             </Card>
             <h4>Skill Matrix Ratings</h4>
-            {userSkills.length>0 && <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
+            {userSkills.length>0 && count<userSkills.length && <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
                 <Card.Body>
                   <h3 style={{ fontSize: "40px", fontWeight: "400" }}>
                     {userSkills[count].questionName}{" "}
@@ -179,20 +187,92 @@ export default function EmpRatingPage() {
                       SkillId={userSkills[count].questionId}
                       empId={empId}
                     />
-                     {userSkills.length-(count+1)==0 && 
+                     {/* {userSkills.length-(count+1)==0 && 
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>{
+                      axios.delete(`https://localhost:7074/api/Approvals/DeleteApprovalsByEmpId?empId=${empId}`)
+                      navigate('/ApprovalPage')}}>
+                    Send Response
+                   </Button>
+                    } */}
+                  </div>
+                  <h3>
+                  {userSkills.length-(count+1)>0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>setCount(p=>p+1)}>
+                      Next Section <ArrowRight />
+                    </Button>
+                  }
+                  {userSkills.length-(count+1)==0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>{setCount(p=>p+1); setTCount(0)}}>
+                      Next Section <ArrowRight />
+                    </Button>
+                  }
+                  </h3>
+                </Card.Body>
+              </Card>
+              }
+              {userTeamSkills.length>0 && count>=userSkills.length && tcount<userTeamSkills.length && <Card style={{ marginTop: "20px", marginBottom: "20px" }}>
+                <Card.Body>
+                  <h3 style={{ fontSize: "40px", fontWeight: "400" }}>
+                    {userTeamSkills[tcount].teamSkillName}{" "}
+                    {/* {userSkills.length-(count+1)>0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>count<userSkills.length-1 && setCount(p=>p+1)}>
+                      Next Section <ArrowRight />
+                    </Button>
+                    }{" "} */}
+                    {tcount > 0 && 
+                    <Button className="prevBtn2" type="button" variant="outline-primary" onClick={()=>setTCount(p=>p-1)}>
+                     <ArrowLeft /> Prev Section
+                    </Button>}
+                    {tcount == 0 && 
+                    <Button className="prevBtn2" type="button" variant="outline-primary" onClick={()=>setCount(p=>p-1)}>
+                     <ArrowLeft /> Prev Section
+                    </Button>}
+                  </h3>
+                  <br /> <br />
+                  <Card className="border-0">
+                    <Card.Body>
+                      <div className="row">
+                        <div className="col-md-6">
+                          <h6>Skill Name</h6>
+                        </div>
+                        <div className="col-md-2">
+                          <h6>Status</h6>
+                        </div>
+                        <div className="col-md-1">
+                          <h6>Ratings</h6>
+                        </div>
+                        <div className="col-md-3">
+                          <h6>Reject/Approve</h6>
+                        </div>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                  <div>
+                  <EmployeeTeamSkillRating
+                      SkillId={userTeamSkills[tcount].teamSkillId}
+                      empId={empId}
+                    />
+                     {/* {userSkills.length-(count+1)==0 && 
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>{
+                      axios.delete(`https://localhost:7074/api/Approvals/DeleteApprovalsByEmpId?empId=${empId}`)
+                      navigate('/ApprovalPage')}}>
+                    Send Response
+                   </Button>
+                    } */}
+                  </div>
+                  <h3>
+                  {userTeamSkills.length-(tcount+1)>0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>tcount<userTeamSkills.length-1 && setTCount(p=>p+1)}>
+                      Next Section <ArrowRight />
+                    </Button>
+                  }
+                   {userTeamSkills.length-(tcount+1)==0 && 
                     <Button className="nextBtn" type="button" variant="primary" onClick={()=>{
                       axios.delete(`https://localhost:7074/api/Approvals/DeleteApprovalsByEmpId?empId=${empId}`)
                       navigate('/ApprovalPage')}}>
                     Send Response
                    </Button>
                     }
-                  </div>
-                  <h3>
-                  {userSkills.length-(count+1)>0 &&
-                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>count<userSkills.length-1 && setCount(p=>p+1)}>
-                      Next Section <ArrowRight />
-                    </Button>
-                  }
                   </h3>
                 </Card.Body>
               </Card>

@@ -63,6 +63,7 @@ export default function SkillMatrix() {
         array: quesDB,
         empId: localStorage.getItem('NewEmpId'),
       };
+      console.log(empQues)
       await axios.post(quesURL, empQues)
         .then((response) => {
           console.log("hi")

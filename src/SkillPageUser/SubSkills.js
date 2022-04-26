@@ -16,6 +16,9 @@ function SubSkills(props) {
   const userSkills = useSelector(
     (state) => state.rootReducer.userSkill.userSkills
   );
+  const userTeamSkills = useSelector(
+        (state) => state.rootReducer.userTeamSkill.userTeamSkills
+      );
   const obj = {
     subskillRatingArr: [],
     empId: empId,
@@ -71,9 +74,36 @@ function SubSkills(props) {
 
     navigate(NextRoute);
   };
+  // const moveNext = (e) => {
+  //   let NextRoute = "";
+  //   let id=0;
+  //   let sname=""
+  //   userSkills.map((ele, i) => {
+  //     if (ele.questionId == props.qId && userSkills[i + 1]) {
+  //       NextRoute = `/Skills/${userSkills[i + 1].questionName}/${
+  //         userSkills[i + 1].questionId
+  //       }`;}
+  //     else if(ele.questionId == props.qId)
+  //     {
+  //       NextRoute=`/TeamSkills/${userTeamSkills[0].teamSkillName}`;
+  //       id=userTeamSkills[0].teamSkillId;
+  //       sname=userTeamSkills[0].teamSkillName
+  //     }
+      
+  //   });
+
+  //   navigate(NextRoute,{state:{id: id,sname:sname,}});
+        
+        
+  //     }
+      
+    
+  
   const moveNextwithSubmit = (e) => {
     let NextRoute = "";
     let data="";
+    let id=0;
+    let sname=""
     userSkills.map((ele, i) => {
       if (ele.questionId == props.qId && userSkills[i + 1]) {
         NextRoute = `/Skills/${userSkills[i + 1].questionName}/${
@@ -83,26 +113,17 @@ function SubSkills(props) {
       }
       else if(ele.questionId == props.qId)
       {
-        NextRoute="/home";
+        NextRoute=`/TeamSkills/${userTeamSkills[0].teamSkillName}`;
+        id=userTeamSkills[0].teamSkillId;
+        sname=userTeamSkills[0].teamSkillName
         data=userSkills[i].questionName;
-        let rmId=localStorage.getItem("rmId");
-        let getApproval={
-          "id": 0,
-          "empId": empId,
-          "managerId": rmId,
-        }
-        console.log(getApproval);
-        axios.post(`https://localhost:7074/api/Approvals/AddApprovals`,getApproval).then((response)=>{
-              console.log(response.data);
-              console.log(getApproval);
-              axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
-        })
+       
 
       }
       
     });
 
-    navigate(NextRoute,{ state: {setShow:true,data:data,} });
+    navigate(NextRoute,{ state: {id: id,sname:sname,setShow:true,data:data,} });
   };
 
   const ratingChanged = (newRating, id) => {

@@ -42,8 +42,8 @@ export default function Skills() {
             <Sidebar />
           </div>
           {/* {subSkillWithRatings && <SubSkills subSkill={subSkill} skill={id.skill} qId={id.qid}/>  }        */}
-          {subSkillWithRatings.length === 0 &&<SubSkills subSkill={subSkill} skill={id.skill} qId={id.qid}/>}
-          {subSkillWithRatings.length > 0 &&<SubSkillsWithRatings subSkill={subSkillWithRatings}skill={id.skill} qId={id.qid}/>}
+          <SubSkills subSkill={subSkill} skill={id.skill} qId={id.qid}/>
+          {/* {subSkillWithRatings.length > 0 &&<SubSkillsWithRatings subSkill={subSkillWithRatings}skill={id.skill} qId={id.qid}/>} */}
         </div>
       </div>
     </>

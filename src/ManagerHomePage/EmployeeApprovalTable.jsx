@@ -11,6 +11,7 @@ import ratingCss from "../css/ratings.css"
 const handleClick = (event, cellValues) => {
   console.log(cellValues.row.empId);
   localStorage.setItem("ApprovalEmpId", cellValues.row.empId);
+  localStorage.setItem("ApprovalTeamId", cellValues.row.teamId);
 };
 
 const RmId = localStorage.getItem("EmpId");
