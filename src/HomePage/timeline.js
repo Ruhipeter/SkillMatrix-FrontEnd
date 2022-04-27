@@ -6,11 +6,12 @@ import ratingsCss from "../css/ratings.css";
 import axios from "axios";
 import { Button, FormControl, InputGroup, Form, Table } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function TimelinePage() {
   const [timelineDB, setTimelineDB] = useState([]);
+  const navigate= useNavigate();
   const empId = localStorage.getItem("EmpId");
   useEffect(() => {
     axios
@@ -54,7 +55,10 @@ export default function TimelinePage() {
                         <td>{i+1}</td>
                         <td>{data.assessmentMonth}</td>
                         <td>{data.submittedOn}</td>
-                        <td>  <Button variant="primary" style={{float:'left',fontWeight:'500'}}>View Data</Button>{' '}</td>
+                        <td>  <Button 
+                                  variant="primary" 
+                                  style={{float:'left',fontWeight:'500'}}
+                                  onClick={()=>navigate(`/ReviewRatings`,{ state: { month: data.assessmentMonth} })}>View Data</Button>{' '}</td>
                       </tr>
                     ))}
                   </tbody>

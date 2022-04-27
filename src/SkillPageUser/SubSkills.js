@@ -111,7 +111,7 @@ function SubSkills(props) {
         data=userSkills[i].questionName;
         
       }
-      else if(ele.questionId == props.qId)
+      else if(ele.questionId == props.qId && userTeamSkills[0])
       {
         NextRoute=`/TeamSkills/${userTeamSkills[0].teamSkillName}`;
         id=userTeamSkills[0].teamSkillId;
@@ -120,9 +120,14 @@ function SubSkills(props) {
        
 
       }
+      else if(ele.questionId == props.qId)
+      {
+        NextRoute='/home'
+        data="All Skills "
+      }
       
     });
-
+    console.log(NextRoute)
     navigate(NextRoute,{ state: {id: id,sname:sname,setShow:true,data:data,} });
   };
 
@@ -247,7 +252,7 @@ console.log(obj)
         </Button>{" "}
         </ButtonGroup> 
         </div>
-        {location.state?
+        {location.state!=null?
         <ToastComp key={Math.random()} setShow={location.state.setShow} data={location.state.data}/>:""}
    
       </div>

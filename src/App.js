@@ -16,6 +16,7 @@ import TeamSkills from './TeamSkills/TeamSkills';
 import ForgotPasswordPage from './login/forgotPassword'
 import TimelinePage from './HomePage/timeline';
 import ReviewDetails from './ManagerHomePage/ReviewDetails';
+import SubSkillsWithRatings from './SkillPageUser/SubSkillsWithRatings';
 
 function getAuth() {
   const loggedIn = localStorage.getItem("LoggedIn");
@@ -150,6 +151,16 @@ function App() {
           element={
             <RequireAuth redirectTo="/">
               <ReviewDetails/>
+            </RequireAuth>
+          }
+        />
+      </Routes>
+      <Routes>
+        <Route
+          path="/ReviewRatings"
+          element={
+            <RequireAuth redirectTo="/">
+              <SubSkillsWithRatings/>
             </RequireAuth>
           }
         />

@@ -4,13 +4,16 @@ import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import ReactStars from 'react-rating-stars-component';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ToastComp from '../HomePage/ToastComp';
 import Rating_info from '../SkillPageUser/Rating_info';
 
 function TeamSubSkills(props) {
   const [subSkills, setSubSkills] = useState([]);
   const navigate = useNavigate();
+  const location=useLocation();
   const empId = localStorage.getItem("EmpId");
+  const team= localStorage.getItem("team");
   const ratings = {
     teamSubskillRatingArr: [],
     empId: empId,
@@ -35,15 +38,18 @@ function TeamSubSkills(props) {
     let NextRoute = "";
     let sname = "";
     let id = 0;
+    let data="";
     userTeamSkills.map((ele, i) => {
       if (ele.teamSkillId == props.qId && userTeamSkills[i + 1]) {
         NextRoute = `/TeamSkills/${userTeamSkills[i + 1].teamSkillName}`;
         sname = userTeamSkills[i + 1].teamSkillName;
+        data=userTeamSkills[i].teamSkillName;
         id = userTeamSkills[i + 1].teamSkillId;
       }
       else if (ele.teamSkillId == props.qId) {
         NextRoute = "/home";
         let rmId = localStorage.getItem("rmId");
+        data="All Skills"
         let getApproval = {
           "id": 0,
           "empId": empId,
@@ -60,7 +66,7 @@ function TeamSubSkills(props) {
 
     });
     console.log(NextRoute);
-    navigate(NextRoute, { state: { id: id, sname: sname } });
+    navigate(NextRoute, { state: { id: id, sname: sname ,setShow:true,data:data,} });
   };
 
 
@@ -92,7 +98,7 @@ function TeamSubSkills(props) {
         <div>
           <br />
           <div>
-            <h1>{props.skill}</h1>
+            <h1>{team} {`>`} {props.skill}</h1>
           </div>{" "}
           <br />
           <div>
@@ -188,7 +194,8 @@ function TeamSubSkills(props) {
         </div>
         {/* {location.state?
       <ToastComp key={Math.random()} setShow={location.state.setShow} data={location.state.data}/>:""} */}
-
+      {location.state.setShow?
+        location.state.setShow && <ToastComp key={Math.random()} setShow={location.state.setShow} data={location.state.data}/>:""}
       </div>
 
     </>
