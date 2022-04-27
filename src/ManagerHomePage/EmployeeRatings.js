@@ -36,6 +36,7 @@ export default function EmpRatingPage() {
   const empId = localStorage.getItem("ApprovalEmpId");
   const empURL = `https://localhost:7074/api/Employee/GetEmployeeByEmpId?empId=${empId}`;
   const teamId=localStorage.getItem("ApprovalTeamId");
+  const assessmentMonth = localStorage.getItem("AssessmentMonth");
 
   useEffect(() => {
     dispatch(listUserSkills(empId));
@@ -186,6 +187,7 @@ console.log(count)
                     <EmployeeSkillRatings
                       SkillId={userSkills[count].questionId}
                       empId={empId}
+                      assessmentMonth={assessmentMonth}
                     />
                      {/* {userSkills.length-(count+1)==0 && 
                     <Button className="nextBtn" type="button" variant="primary" onClick={()=>{

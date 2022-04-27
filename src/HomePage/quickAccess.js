@@ -8,11 +8,26 @@ import Card from "react-bootstrap/Card";
 import inboxImg from "../images/inboxImg.svg";
 
 function QuickAccess(props) {
+
+  const months = [
+    "Jan", "Feb", 
+    "March", "April", "May", 
+    "June", "July", "Aug",
+    "Sept", "Oct", 
+    "Nov", "Dec"
+];
+const days = [
+  "Mon", "Tues", 
+  "Wed", "Thu", "Fri", 
+  "Sat", "Sun"
+];
+
   const date = new Date();
   let today = date.toDateString();
+  let day = days[date.getDay()]
   let year = date.getFullYear();
-  let month = date.getMonth() + 1;
-  let day = date.getDate();
+  let month = months[date.getMonth()]
+  let daydate = date.getDate();
   const EmpId=localStorage.getItem('EmpId')
   const [time, setTime] = React.useState("");
   const [updateDate, setUpdateDate] = React.useState(props.updateDate);
@@ -21,7 +36,6 @@ function QuickAccess(props) {
   const [empUpdateOnTime , setEmpUpdatedOnTime] = useState(props.empUpdateOnTime)
 
 
-  const calenderURL = `https://calendarific.com/api/v2/holidays?&api_key=274e720acef9f69b5abf7149ab3ef69d54b4b764&country=IN&year=${year}&day=${day}&month=${month}`;
   useEffect(()=>{
     axios.get(`https://localhost:7074/api/UpdatedOn/GetLatestUpdateTimeByEmpId?EmpId=${EmpId}`).then((response)=>{
       console.log(response.data.data)
@@ -31,17 +45,7 @@ function QuickAccess(props) {
     })
   },[])
 
-  useEffect(() => {
-    axios.get(calenderURL).then((response) => {
-      // console.log(response.data.response);
-      let res = response.data.response;
-      if (res.holidays.length > 0) {
-        setEvent(response.data.response.holidays[0].name);
-      } else {
-        setEvent("No Holiday Today");
-      }
-    });
-  }, []);
+
 
   React.useEffect(() => {
     const myInterval = setInterval(() => {
@@ -85,8 +89,10 @@ function QuickAccess(props) {
         >
           <Card.Body>
             <Card.Title style={{ fontSize: "15px" }}>Time Today </Card.Title>
-            <Card.Title style={{ fontSize: "26px" }}> {today} </Card.Title>
-            <Card.Title style={{ fontSize: "26px" }}> {time} </Card.Title>
+            <Card.Title style={{ fontSize: "22px" , display:'flex'}}>
+            <img style={{height:'50px',width:'50px',marginRight:'6px',marginTop:'5px'}} src="https://img.icons8.com/ios/50/ffffff/clock--v1.png"/>
+            {day} , {month} {daydate} , {year} <br/>{time} </Card.Title>
+            {/* <Card.Title style={{ fontSize: "26px" }}> {time} </Card.Title> */}
           </Card.Body>
         </Card>
 
@@ -114,9 +120,13 @@ function QuickAccess(props) {
           }}
         >
           <Card.Body>
-            <Card.Title style={{ fontSize: "15px" }}>Your Latest Update</Card.Title>
-            <Card.Title style={{ fontSize: "26px" }}> {empUpdatedOn && empUpdatedOn.submittedOn} </Card.Title>
-            <Card.Title style={{ fontSize: "26px" }}> {empUpdatedOn && empUpdatedOn.assessmentMonth}  </Card.Title>
+            <Card.Title style={{ fontSize: "15px" }}>Last Assessment Month</Card.Title>
+            <Card.Title style={{ fontSize: "22px" , display:'flex' }}>
+            <img style={{height:'60px',width:'60px',marginRight:'6px'}} src="https://img.icons8.com/nolan/64/ffffff/planner.png"/>
+               {empUpdatedOn && empUpdatedOn.submittedOn}  <br/>
+               {empUpdatedOn && empUpdatedOn.assessmentMonth} 
+            </Card.Title>
+            {/* <Card.Title style={{ fontSize: "26px" }}> {empUpdatedOn && empUpdatedOn.assessmentMonth}  </Card.Title> */}
           </Card.Body>
         </Card>:''}
       </div>

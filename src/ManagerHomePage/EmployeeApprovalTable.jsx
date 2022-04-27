@@ -12,6 +12,7 @@ const handleClick = (event, cellValues) => {
   console.log(cellValues.row.empId);
   localStorage.setItem("ApprovalEmpId", cellValues.row.empId);
   localStorage.setItem("ApprovalTeamId", cellValues.row.teamId);
+  localStorage.setItem("AssessmentMonth", cellValues.row.assessmentMonth);
 };
 
 const RmId = localStorage.getItem("EmpId");
@@ -72,7 +73,14 @@ const columns = [
     headerName: "Designation",
     sortable: true,
     filter: true,
-    width: 350,
+    width: 320,
+  },
+  {
+    field: "assessmentMonth",
+    headerName: "Assessment Month",
+    sortable: true,
+    filter: true,
+    width: 180,
   },
   {
     field: "View Details",
@@ -114,7 +122,7 @@ export default function ApprovalDataTable() {
     <div style={{ height: 1000, width: "100%" }}>
       <DataGrid
         rows={rows}
-        rowHeight={120}
+        rowHeight={100}
         columns={columns}
         getRowId={(row) => row.empId}
         style={{
