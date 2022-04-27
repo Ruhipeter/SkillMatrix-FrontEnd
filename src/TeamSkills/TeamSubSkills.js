@@ -48,6 +48,8 @@ function TeamSubSkills(props) {
           "id": 0,
           "empId": empId,
           "managerId": rmId,
+          "submittedOn":"string",
+          "assessmentMonth":"string"
         }
         console.log(getApproval);
         axios.post(`https://localhost:7074/api/Approvals/AddApprovals`, getApproval).then((response) => {

@@ -18,10 +18,11 @@ import { AiFillStar } from "react-icons/ai";
 
 function EmployeeSkillRatings(props) {
   const [subSkillWithRatings, setSubSkillsWithRatings] = useState([]);
+  console.log(props)
   useEffect(() => {
     axios
       .get(
-        `https://localhost:7074/api/SubSkillsRatings/GetSubSkillRatingBySkillIdAndEmpId?skillId=${props.SkillId}&empId=${props.empId}`
+        `https://localhost:7074/api/SubSkillsRatings/GetSubSkillRatingBySkillIdAndEmpId?skillId=${props.SkillId}&empId=${props.empId}&month=${props.assessmentMonth}`
       )
       .then((res) => {
         setSubSkillsWithRatings(res.data);
