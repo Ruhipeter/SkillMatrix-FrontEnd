@@ -122,8 +122,24 @@ function SubSkills(props) {
       }
       else if(ele.questionId == props.qId)
       {
-        NextRoute='/home'
-        data="All Skills "
+        NextRoute = "/home";
+        let rmId = localStorage.getItem("rmId");
+        data="All Skills"
+        let getApproval = {
+          "id": 0,
+          "empId": empId,
+          "managerId": rmId,
+          "submittedOn":"string",
+          "assessmentMonth":"string"
+        }
+        console.log(getApproval);
+        axios.post(`https://localhost:7074/api/Approvals/AddApprovals`, getApproval).then((response) => {
+          console.log(response.data);
+          console.log(getApproval);
+          axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
+        })
+
+      
       }
       
     });

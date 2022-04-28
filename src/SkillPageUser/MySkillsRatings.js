@@ -29,6 +29,7 @@ function MySkillsRatings(props) {
                               </div>
                               <div>
                                 <ReactStars
+                                  key={Math.random()}
                                   count={5}
                                   value={ele.ratings}
                                   edit={false}

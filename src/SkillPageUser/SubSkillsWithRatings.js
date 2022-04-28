@@ -63,8 +63,13 @@ function SubSkillsWithRatings(props) {
                       Next Section <ArrowRight />
                     </Button>
                   }
-                  {userSkills.length-(count+1)==0 &&
+                  {userTeamSkills.length>0 && userSkills.length-(count+1)==0 &&
                     <Button className="nextBtn" type="button" variant="primary" onClick={()=>{setCount(p=>p+1); setTCount(0)}}>
+                      Next Section <ArrowRight />
+                    </Button>
+                  }{' '}
+                  {userTeamSkills.length==0 && userSkills.length-(count+1)==0 &&
+                    <Button className="nextBtn" type="button" variant="primary" onClick={()=>{navigate('/timeline')}}>
                       Next Section <ArrowRight />
                     </Button>
                   }{' '}
