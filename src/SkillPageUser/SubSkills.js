@@ -111,7 +111,7 @@ function SubSkills(props) {
         data=userSkills[i].questionName;
         
       }
-      else if(ele.questionId == props.qId)
+      else if(ele.questionId == props.qId && userTeamSkills[0])
       {
         NextRoute=`/TeamSkills/${userTeamSkills[0].teamSkillName}`;
         id=userTeamSkills[0].teamSkillId;
@@ -120,9 +120,30 @@ function SubSkills(props) {
        
 
       }
+      else if(ele.questionId == props.qId)
+      {
+        NextRoute = "/home";
+        let rmId = localStorage.getItem("rmId");
+        data="All Skills"
+        let getApproval = {
+          "id": 0,
+          "empId": empId,
+          "managerId": rmId,
+          "submittedOn":"string",
+          "assessmentMonth":"string"
+        }
+        console.log(getApproval);
+        axios.post(`https://localhost:7074/api/Approvals/AddApprovals`, getApproval).then((response) => {
+          console.log(response.data);
+          console.log(getApproval);
+          axios.post(`https://localhost:7074/api/UpdatedOn/CreateUpdates?empId=${empId}`)
+        })
+
+      
+      }
       
     });
-
+    console.log(NextRoute)
     navigate(NextRoute,{ state: {id: id,sname:sname,setShow:true,data:data,} });
   };
 
@@ -247,7 +268,7 @@ console.log(obj)
         </Button>{" "}
         </ButtonGroup> 
         </div>
-        {location.state?
+        {location.state!=null?
         <ToastComp key={Math.random()} setShow={location.state.setShow} data={location.state.data}/>:""}
    
       </div>

@@ -45,6 +45,7 @@ function Feeds() {
       setUserinformation(userInfo);
       localStorage.setItem("rmId", userInfo.rmId);
       localStorage.setItem("teamId", userInfo.teamId);
+      localStorage.setItem("team", userInfo.team);
     }
   }, [userInfo]);
   const fillForm = () => {
