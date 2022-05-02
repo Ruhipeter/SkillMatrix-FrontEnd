@@ -136,31 +136,30 @@ function Feeds() {
             </button>
             <h5 style={{ fontWeight: "400" }}>General Skills Questionnaire</h5>
             <hr/>
+            <div className="container">
+            <div className="row" style={{gap:'10px'}}>
             {userSkills.map((ele) => (
               //  <h5>{ele.questionName}</h5>
-
               <Card
                 key={ele.QuestionId}
                 style={{
-                  marginTop: "20px",
-                  marginBottom: "20px",
                   backgroundColor: "#0d2c48",
                   color: "white",
-                  width: "450px",
+                  width: "fit-content",
                 }}
               >
-                <Card.Body style={{ padding: "10px" }}>
+                <Card.Body style={{ padding: "10px",alignItems:'center' }}>
                   <Card.Title style={{ fontSize: "22px" }}>
                     {" "}
+                    {console.log(ele.skillLogo)}
+                     {/* <img style={{height:'50px',width:'50px',borderRadius:'50%'}} src='https://img.icons8.com/external-kiranshastry-solid-kiranshastry/264/ffffff/external-skills-management-kiranshastry-solid-kiranshastry-12.png' /> */}
                     {ele.questionName}
-                    <img
-                      style={{ height: "30px", width: "40px", float: "right" }}
-                      src="https://img.icons8.com/external-outline-astudio/132/ffffff/external-arrow-arrow-outline-astudio-25.png"
-                    />
                   </Card.Title>
                 </Card.Body>
               </Card>
             ))}
+            </div>
+            </div>
             <h5 style={{ fontWeight: "400" }}>Team Skills Questionnaire</h5><hr/>
             {userTeamSkills.map((ele) => (
               //  <h5>{ele.questionName}</h5>
@@ -179,10 +178,6 @@ function Feeds() {
                   <Card.Title style={{ fontSize: "22px" }}>
                     {" "}
                     {ele.teamSkillName}
-                    <img
-                      style={{ height: "30px", width: "40px", float: "right" }}
-                      src="https://img.icons8.com/external-outline-astudio/132/ffffff/external-arrow-arrow-outline-astudio-25.png"
-                    />
                   </Card.Title>
                 </Card.Body>
               </Card>
