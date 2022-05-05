@@ -134,55 +134,60 @@ function Feeds() {
                 <span className="icon arrow"></span>
               </span>
               <span className="button-text">Fill Form</span>
-            </button>
+            </button> <br/>
             <h5 style={{ fontWeight: "400" }}>General Skills Questionnaire</h5>
-            <hr/>
+            <hr />
             <div className="container">
-            <div className="row" style={{gap:'10px'}}>
-            {userSkills.map((ele) => (
+              <div className="row" style={{ gap: "10px" }}>
+                {userSkills.map((ele) => (
+                  //  <h5>{ele.questionName}</h5>
+                  <Card
+                    key={ele.QuestionId}
+                    style={{
+                      backgroundColor: "#0d2c48",
+                      color: "white",
+                      width: "fit-content",
+                    }}
+                  >
+                    <Card.Body style={{ padding: "8px", alignItems: "center" }}>
+                      <Card.Title
+                        style={{ fontSize: "19px", lineHeight: "1.5" }}
+                      >
+                        {" "}
+                        {/* <img style={{height:'50px',width:'50px',borderRadius:'50%'}} src='https://img.icons8.com/external-kiranshastry-solid-kiranshastry/264/ffffff/external-skills-management-kiranshastry-solid-kiranshastry-12.png' /> */}
+                        {ele.questionName}
+                      </Card.Title>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </div>
+            </div>{" "}
+            <br />
+            <h5 style={{ fontWeight: "400" }}>Team Skills Questionnaire</h5>
+            <hr />
+            <div className="container">
+              <div className="row" style={{ gap: "10px" }}>
+            {userTeamSkills.map((ele) => (
               //  <h5>{ele.questionName}</h5>
               <Card
-                key={ele.QuestionId}
+                key={ele.teamSkillId}
                 style={{
                   backgroundColor: "#0d2c48",
                   color: "white",
                   width: "fit-content",
                 }}
               >
-                <Card.Body style={{ padding: "10px",alignItems:'center' }}>
-                  <Card.Title style={{ fontSize: "22px" }}>
+                <Card.Body style={{ padding: "8px", alignItems: "center" }}>
+                  <Card.Title style={{ fontSize: "19px", lineHeight: "1.5" }}>
                     {" "}
-                    {console.log(ele.skillLogo)}
-                     {/* <img style={{height:'50px',width:'50px',borderRadius:'50%'}} src='https://img.icons8.com/external-kiranshastry-solid-kiranshastry/264/ffffff/external-skills-management-kiranshastry-solid-kiranshastry-12.png' /> */}
-                    {ele.questionName}
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            ))}
-            </div>
-            </div>
-            <h5 style={{ fontWeight: "400" }}>Team Skills Questionnaire</h5><hr/>
-            {userTeamSkills.map((ele) => (
-              //  <h5>{ele.questionName}</h5>
-
-              <Card
-                key={ele.teamSkillId}
-                style={{
-                  marginTop: "20px",
-                  marginBottom: "20px",
-                  backgroundColor: "#0d2c48",
-                  color: "white",
-                  width: "450px",
-                }}
-              >
-                <Card.Body style={{ padding: "10px" }}>
-                  <Card.Title style={{ fontSize: "22px" }}>
-                    {" "}
+                    {/* <img style={{height:'50px',width:'50px',borderRadius:'50%'}} src='https://img.icons8.com/external-kiranshastry-solid-kiranshastry/264/ffffff/external-skills-management-kiranshastry-solid-kiranshastry-12.png' /> */}
                     {ele.teamSkillName}
                   </Card.Title>
                 </Card.Body>
               </Card>
             ))}
+            </div>
+            </div>
           </Card.Body>
         </Card>
       </div>
